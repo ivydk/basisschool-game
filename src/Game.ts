@@ -1,5 +1,5 @@
-import GameLoop from "./GameLoop.js";
-
+import GameLoop from './GameLoop.js';
+import Player from './Player.js';
 
 export default class Game {
     // Necessary canvas attributes
@@ -8,6 +8,8 @@ export default class Game {
     public readonly ctx: CanvasRenderingContext2D;
 
     private gameLoop: GameLoop;
+
+    private player: Player;
 
     /**
      * Initialize the game
@@ -27,6 +29,9 @@ export default class Game {
         // this.gameLoop.start(this.level);
 
         this.writeTextToCanvas('hallo', 40, 40, 40);
+
+        this.player = this.insertPlayer();
+        this.draw();
     }
 
     /**
@@ -74,5 +79,27 @@ export default class Game {
      */
     public static randomNumber(min: number, max: number): number {
         return Math.round(Math.random() * (max - min) + min);
+    }
+
+
+    private insertPlayer(): Player {
+        const image = Game.loadNewImage('./assets/img/tommie.png');
+        return new Player(this.canvas.width / 2, this.canvas.height / 2, image);
+    }
+
+    /**
+   * Draws all the necessary elements to the canvas
+   */
+    private draw = () => {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawPlayer();
+        requestAnimationFrame(this.draw);
+    };
+
+    /**
+   * Method to draw the Player
+   */
+    private drawPlayer() {
+        this.player.draw(this.ctx);
     }
 }
