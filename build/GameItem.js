@@ -27,7 +27,6 @@ export default class GameItem {
     }
     draw(ctx) {
         ctx.drawImage(this.image, this.xPosition, this.yPosition);
-        console.log(this.image);
     }
 }
 //# sourceMappingURL=GameItem.js.map

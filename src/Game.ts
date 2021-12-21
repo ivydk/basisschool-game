@@ -1,5 +1,6 @@
 import GameLoop from './GameLoop.js';
 import Player from './Player.js';
+import Score from './Score.js';
 
 export default class Game {
     // Necessary canvas attributes
@@ -10,6 +11,10 @@ export default class Game {
     private gameLoop: GameLoop;
 
     private player: Player;
+
+    private score: Score;
+
+    private framecount: number;
 
     /**
      * Initialize the game
@@ -28,7 +33,9 @@ export default class Game {
         this.gameLoop = new GameLoop();
         // this.gameLoop.start(this.level);
 
-        this.writeTextToCanvas('hallo', 40, 40, 40);
+        this.score = new Score;
+
+        this.framecount = 0;
 
         this.player = this.insertPlayer();
         this.draw();
@@ -49,7 +56,7 @@ export default class Game {
         fontSize: number = 20,
         xCoordinate: number,
         yCoordinate: number,
-        alignment: CanvasTextAlign = 'center',
+        alignment: CanvasTextAlign = 'left',
         color: string = 'black',
     ): void {
         this.ctx.font = `${fontSize}px sans-serif`;
@@ -84,15 +91,22 @@ export default class Game {
 
     private insertPlayer(): Player {
         const image = Game.loadNewImage('./assets/img/tommie.png');
-        return new Player(this.canvas.width / 2, this.canvas.height / 2, image);
+        return new Player(10, this.canvas.height / 4, image);
     }
 
     /**
    * Draws all the necessary elements to the canvas
    */
     private draw = () => {
+        this.framecount += 1;
+
+        if ((this.framecount % 60) === 0) {
+            this.score.setScore(1);
+        }
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.drawPlayer();
+        this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
         requestAnimationFrame(this.draw);
     };
 

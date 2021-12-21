@@ -79,6 +79,5 @@ export default class GameItem {
    */
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.image, this.xPosition, this.yPosition);
-        console.log(this.image);
     }
 }
