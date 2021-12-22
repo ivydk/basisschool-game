@@ -1,6 +1,10 @@
+import GameItem from './GameItem.js';
 import GameLoop from './GameLoop.js';
+import Line from './Line.js';
 import Player from './Player.js';
+import Rocket from './Rocket.js';
 import Score from './Score.js';
+import ScoringItem from './ScoringItem.js';
 
 export default class Game {
     // Necessary canvas attributes
@@ -15,6 +19,10 @@ export default class Game {
     private score: Score;
 
     private framecount: number;
+
+    private scoringItems: ScoringItem[];
+
+    private line: Line;
 
     /**
      * Initialize the game
@@ -35,10 +43,36 @@ export default class Game {
 
         this.score = new Score;
 
+        this.line = new Line(this.ctx, this.canvas);
+
+        this.scoringItems = [];
+
+        // add some virusses
+        for (let index = 0; index < 10; index++) {
+            if (index % 2 === 0) {
+                console.log('RightToLeft');
+                this.scoringItems.push(
+                    // new Rocket('RightToLeft', this.canvas.width, this.canvas.height),
+                    // let xPosition = ScoringItem.randomInteger(0, canvasWidth - 200);
+                    // const yPosition = ScoringItem.randomInteger(0, canvasHeight - 200)
+                    new Rocket(
+                        'rightToLeft',
+                        this.canvas,
+                        // GameItem.randomInteger(0, this.canvas.width - 200),
+                        canvas.width,
+                        GameItem.randomInteger(0, this.canvas.height - 200),
+                        GameItem.loadNewImage('./assets/img/rocket-horizontal.png'),
+                    )
+                );
+            }
+        }
+
+        console.log(this.scoringItems)
+
         this.framecount = 0;
 
         this.player = this.insertPlayer();
-        this.draw();
+        this.loop();
     }
 
     /**
@@ -97,7 +131,7 @@ export default class Game {
     /**
    * Draws all the necessary elements to the canvas
    */
-    private draw = () => {
+    private loop = () => {
         this.framecount += 1;
 
         if ((this.framecount % 60) === 0) {
@@ -105,9 +139,16 @@ export default class Game {
         }
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         this.drawPlayer();
+        this.drawRockets();
+
+        this.moveRockets();
+
+        this.line.drawLine();
+
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
-        requestAnimationFrame(this.draw);
+        requestAnimationFrame(this.loop);
     };
 
     /**
@@ -115,5 +156,23 @@ export default class Game {
    */
     private drawPlayer() {
         this.player.draw(this.ctx);
+    }
+
+    private drawRockets() {
+        if (this.scoringItems.length !== 0) {
+            // draw each scoring item
+            this.scoringItems.forEach((scoringItem) => {
+                scoringItem.draw(this.ctx);
+            });
+        }
+    }
+
+    private moveRockets() {
+        if (this.scoringItems.length !== 0) {
+            // draw each scoring item
+            this.scoringItems.forEach((scoringItem) => {
+                scoringItem.move();
+            });
+        }
     }
 }

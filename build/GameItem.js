@@ -28,5 +28,13 @@ export default class GameItem {
     draw(ctx) {
         ctx.drawImage(this.image, this.xPosition, this.yPosition);
     }
+    static loadNewImage(source) {
+        const img = new Image();
+        img.src = source;
+        return img;
+    }
+    static randomInteger(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
 }
 //# sourceMappingURL=GameItem.js.map

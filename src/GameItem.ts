@@ -80,4 +80,34 @@ export default class GameItem {
     public draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.image, this.xPosition, this.yPosition);
     }
+
+    /**
+     * Loads an image in such a way that the screen doesn't constantly flicker
+     *
+     *
+     * NOTE: this is a 'static' method. This means that this method must be called like
+     * `Game.loadNewImage()` instead of `this.loadNewImage()`.
+     *
+     * @param source The address or URL of the a media resource that is to be loaded
+     * @returns an HTMLImageElement with the source as its src attribute
+     */
+    public static loadNewImage(source: string): HTMLImageElement {
+        const img = new Image();
+        img.src = source;
+        return img;
+    }
+
+    /**
+     * Generates a random integer number between min and max
+     *
+     * NOTE: this is a 'static' method. This means that this method must be called like
+     * `Game.randomInteger()` instead of `this.randomInteger()`.
+     *
+     * @param min - minimal time
+     * @param max - maximal time
+     * @returns a random integer number between min and max
+     */
+    public static randomInteger(min: number, max: number): number {
+        return Math.round(Math.random() * (max - min) + min);
+    }
 }
