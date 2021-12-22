@@ -13,6 +13,8 @@ export default class Game {
     framecount;
     scoringItems;
     line;
+    xMouse;
+    yMouse;
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
@@ -22,12 +24,6 @@ export default class Game {
         this.score = new Score;
         this.line = new Line(this.ctx, this.canvas);
         this.scoringItems = [];
-        for (let index = 0; index < 10; index++) {
-            if (index % 2 === 0) {
-                console.log('RightToLeft');
-                this.scoringItems.push(new Rocket('rightToLeft', this.canvas, canvas.width, GameItem.randomInteger(0, this.canvas.height - 200), GameItem.loadNewImage('./assets/img/rocket-horizontal.png')));
-            }
-        }
         console.log(this.scoringItems);
         this.framecount = 0;
         this.player = this.insertPlayer();
@@ -55,12 +51,15 @@ export default class Game {
         this.framecount += 1;
         if ((this.framecount % 60) === 0) {
             this.score.setScore(1);
+            this.virusIsClicked();
         }
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.drawPlayer();
         this.drawRockets();
+        this.createVirus();
         this.moveRockets();
         this.line.drawLine();
+        this.virusCollidesWithLine();
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
         requestAnimationFrame(this.loop);
     };
@@ -80,6 +79,47 @@ export default class Game {
                 scoringItem.move();
             });
         }
+    }
+    virusCollidesWithLine() {
+        this.scoringItems = this.scoringItems.filter((element) => {
+            if (this.line.collidesWithRocket(element)) {
+                return false;
+            }
+            return true;
+        });
+    }
+    createVirus() {
+        if (this.framecount % 35 === 0) {
+            this.scoringItems.push(new Rocket('rightToLeft', this.canvas, this.canvas.width, GameItem.randomInteger(0, this.canvas.height - 30), GameItem.loadNewImage('./assets/img/virusSmall.png')));
+        }
+    }
+    mouseClick() {
+        let cursorX;
+        let cursorY;
+        document.addEventListener('click', function (e) {
+            cursorX = e.pageX;
+            cursorY = e.pageY;
+            console.log(cursorY);
+        });
+        console.log(`y: ${cursorY}, x: ${cursorX}`);
+    }
+    virusIsClicked() {
+        let cursorX;
+        let cursorY;
+        document.addEventListener('click', function (e) {
+            cursorX = e.pageX;
+            cursorY = e.pageY;
+            console.log('clicked');
+            return [cursorX, cursorY];
+        });
+        this.scoringItems = this.scoringItems.filter((element) => {
+            if (cursorX === element.getXPos() && cursorY === element.getYPos()) {
+                console.log('geraakt');
+                return false;
+            }
+            console.log('niks');
+            return true;
+        });
     }
 }
 //# sourceMappingURL=Game.js.map

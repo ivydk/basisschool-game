@@ -25,33 +25,6 @@ export default abstract class ScoringItem extends GameItem {
         return this.points;
     }
 
-    // /**
-    //  * Get image of the item
-    //  *
-    //  * @returns image of the item
-    //  */
-    // public getImage(): HTMLImageElement {
-    //     return this.image;
-    // }
-
-    // /**
-    //  * Set the image of the item
-    //  *
-    //  * @param image image of the item
-    //  */
-    // protected setImage(image: HTMLImageElement): void {
-    //     this.image = image;
-    // }
-
-    // /**
-    //  * Method to draw the Rocket on the canvas
-    //  *
-    //  * @param ctx rendering context
-    //  */
-    // public draw(ctx: CanvasRenderingContext2D): void {
-    //     ctx.drawImage(this.image, this.getXPosition(), this.getYPosition());
-    // }
-
     /**
      * Abstract method to move item
      */

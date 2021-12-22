@@ -7,172 +7,234 @@ import Score from './Score.js';
 import ScoringItem from './ScoringItem.js';
 
 export default class Game {
-    // Necessary canvas attributes
-    public readonly canvas: HTMLCanvasElement;
+  // Necessary canvas attributes
+  public readonly canvas: HTMLCanvasElement;
 
-    public readonly ctx: CanvasRenderingContext2D;
+  public readonly ctx: CanvasRenderingContext2D;
 
-    private gameLoop: GameLoop;
+  private gameLoop: GameLoop;
 
-    private player: Player;
+  private player: Player;
 
-    private score: Score;
+  private score: Score;
 
-    private framecount: number;
+  private framecount: number;
 
-    private scoringItems: ScoringItem[];
+  private scoringItems: ScoringItem[];
 
-    private line: Line;
+  private line: Line;
 
-    /**
-     * Initialize the game
-     *
-     * @param canvas - The canvas element that the game
-     * should be rendered upon
-     */
-    public constructor(canvas: HTMLCanvasElement) {
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext('2d');
+  private xMouse: number;
 
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+  private yMouse: number;
 
-        // Start the game cycle
-        this.gameLoop = new GameLoop();
-        // this.gameLoop.start(this.level);
-
-        this.score = new Score;
-
-        this.line = new Line(this.ctx, this.canvas);
-
-        this.scoringItems = [];
-
-        // add some virusses
-        for (let index = 0; index < 10; index++) {
-            if (index % 2 === 0) {
-                console.log('RightToLeft');
-                this.scoringItems.push(
-                    // new Rocket('RightToLeft', this.canvas.width, this.canvas.height),
-                    // let xPosition = ScoringItem.randomInteger(0, canvasWidth - 200);
-                    // const yPosition = ScoringItem.randomInteger(0, canvasHeight - 200)
-                    new Rocket(
-                        'rightToLeft',
-                        this.canvas,
-                        // GameItem.randomInteger(0, this.canvas.width - 200),
-                        canvas.width,
-                        GameItem.randomInteger(0, this.canvas.height - 200),
-                        GameItem.loadNewImage('./assets/img/rocket-horizontal.png'),
-                    )
-                );
-            }
-        }
-
-        console.log(this.scoringItems)
-
-        this.framecount = 0;
-
-        this.player = this.insertPlayer();
-        this.loop();
-    }
-
-    /**
-     * Writes text to the canvas
-     *
-     * @param text - Text to write
-     * @param fontSize - Font size in pixels
-     * @param xCoordinate - Horizontal coordinate in pixels
-     * @param yCoordinate - Vertical coordinate in pixels
-     * @param alignment - Where to align the text
-     * @param color - The color of the text
-     */
-    public writeTextToCanvas(
-        text: string,
-        fontSize: number = 20,
-        xCoordinate: number,
-        yCoordinate: number,
-        alignment: CanvasTextAlign = 'left',
-        color: string = 'black',
-    ): void {
-        this.ctx.font = `${fontSize}px sans-serif`;
-        this.ctx.fillStyle = color;
-        this.ctx.textAlign = alignment;
-        this.ctx.fillText(text, xCoordinate, yCoordinate);
-    }
-
-    /**
-     * Method to load an image
-     *
-     * @param source the source
-     * @returns HTMLImageElement - returns an image
-     */
-    public static loadNewImage(source: string): HTMLImageElement {
-        const img = new Image();
-        img.src = source;
-        return img;
-    }
-
-    /**
-     * Returns a random number between min and max
-     *
-     * @param min - lower boundary
-     * @param max - upper boundary
-     * @returns a random number between min and max
-     */
-    public static randomNumber(min: number, max: number): number {
-        return Math.round(Math.random() * (max - min) + min);
-    }
-
-
-    private insertPlayer(): Player {
-        const image = Game.loadNewImage('./assets/img/tommie.png');
-        return new Player(10, this.canvas.height / 4, image);
-    }
-
-    /**
-   * Draws all the necessary elements to the canvas
+  /**
+   * Initialize the game
+   *
+   * @param canvas - The canvas element that the game
+   * should be rendered upon
    */
-    private loop = () => {
-        this.framecount += 1;
+  public constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas;
+    this.ctx = this.canvas.getContext('2d');
 
-        if ((this.framecount % 60) === 0) {
-            this.score.setScore(1);
-        }
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    // Start the game cycle
+    this.gameLoop = new GameLoop();
 
-        this.drawPlayer();
-        this.drawRockets();
+    this.score = new Score;
 
-        this.moveRockets();
+    this.line = new Line(this.ctx, this.canvas);
 
-        this.line.drawLine();
+    this.scoringItems = [];
 
-        this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
-        requestAnimationFrame(this.loop);
-    };
+    console.log(this.scoringItems)
 
-    /**
-   * Method to draw the Player
+    this.framecount = 0;
+
+    this.player = this.insertPlayer();
+    this.loop();
+  }
+
+  /**
+   * Writes text to the canvas
+   *
+   * @param text - Text to write
+   * @param fontSize - Font size in pixels
+   * @param xCoordinate - Horizontal coordinate in pixels
+   * @param yCoordinate - Vertical coordinate in pixels
+   * @param alignment - Where to align the text
+   * @param color - The color of the text
    */
-    private drawPlayer() {
-        this.player.draw(this.ctx);
+  public writeTextToCanvas(
+    text: string,
+    fontSize: number = 20,
+    xCoordinate: number,
+    yCoordinate: number,
+    alignment: CanvasTextAlign = 'left',
+    color: string = 'black',
+  ): void {
+    this.ctx.font = `${fontSize}px sans-serif`;
+    this.ctx.fillStyle = color;
+    this.ctx.textAlign = alignment;
+    this.ctx.fillText(text, xCoordinate, yCoordinate);
+  }
+
+  /**
+   * Method to load an image
+   *
+   * @param source the source
+   * @returns HTMLImageElement - returns an image
+   */
+  public static loadNewImage(source: string): HTMLImageElement {
+    const img = new Image();
+    img.src = source;
+    return img;
+  }
+
+  /**
+   * Returns a random number between min and max
+   *
+   * @param min - lower boundary
+   * @param max - upper boundary
+   * @returns a random number between min and max
+   */
+  public static randomNumber(min: number, max: number): number {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
+
+  private insertPlayer(): Player {
+    const image = Game.loadNewImage('./assets/img/tommie.png');
+    return new Player(10, this.canvas.height / 4, image);
+  }
+
+  /**
+ * Draws all the necessary elements to the canvas
+ */
+  private loop = () => {
+    this.framecount += 1;
+
+    if ((this.framecount % 60) === 0) {
+      this.score.setScore(1);
+      this.virusIsClicked();
     }
 
-    private drawRockets() {
-        if (this.scoringItems.length !== 0) {
-            // draw each scoring item
-            this.scoringItems.forEach((scoringItem) => {
-                scoringItem.draw(this.ctx);
-            });
-        }
-    }
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    private moveRockets() {
-        if (this.scoringItems.length !== 0) {
-            // draw each scoring item
-            this.scoringItems.forEach((scoringItem) => {
-                scoringItem.move();
-            });
-        }
+    this.drawPlayer();
+    this.drawRockets();
+    this.createVirus();
+
+    this.moveRockets();
+
+    this.line.drawLine();
+
+    this.virusCollidesWithLine();
+
+    this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
+    requestAnimationFrame(this.loop);
+  };
+
+  /**
+ * Method to draw the Player
+ */
+  private drawPlayer() {
+    this.player.draw(this.ctx);
+  }
+
+  private drawRockets() {
+    if (this.scoringItems.length !== 0) {
+      // draw each scoring item
+      this.scoringItems.forEach((scoringItem) => {
+        scoringItem.draw(this.ctx);
+      });
     }
+  }
+
+  private moveRockets() {
+    if (this.scoringItems.length !== 0) {
+      // draw each scoring item
+      this.scoringItems.forEach((scoringItem) => {
+        scoringItem.move();
+      });
+    }
+  }
+
+  private virusCollidesWithLine() {
+    // create a new array with scoring items that are still on the screen
+    this.scoringItems = this.scoringItems.filter((element) => {
+      // check if the player is over (collided with) the garbage item.
+      if (this.line.collidesWithRocket(element)) {
+        // Do not include this item.
+        return false;
+      }
+      return true;
+    });
+  }
+
+  private createVirus() {
+    if (this.framecount % 35 === 0) {
+      this.scoringItems.push(
+        new Rocket(
+          'rightToLeft',
+          this.canvas,
+          this.canvas.width,
+          GameItem.randomInteger(0, this.canvas.height - 30),
+          GameItem.loadNewImage('./assets/img/virusSmall.png'),
+        )
+      );
+    }
+  }
+
+  private mouseClick(): void {
+    let cursorX;
+    let cursorY;
+    document.addEventListener('click', function (e) {
+      cursorX = e.pageX;
+      cursorY = e.pageY;
+      console.log(cursorY);
+    })
+    console.log(`y: ${cursorY}, x: ${cursorX}`);
+  }
+
+  // private getCursorPosition(event: any): void {
+  //     const rect = this.canvas.getBoundingClientRect()
+  //     const x = event.clientX - rect.left
+  //     const y = event.clientY - rect.top
+  //     console.log(`${x}, ${y}`)
+  // }
+
+  // private mouse() {
+  //     this.canvas.addEventListener('mousedown', function (e) {
+  //         this.getCursorPosition(canvas, e)
+  //     })
+  // }
+
+  private virusIsClicked() {
+    let cursorX: number;
+    let cursorY: number;
+    document.addEventListener('click', function (e) {
+      cursorX = e.pageX;
+      cursorY = e.pageY;
+      console.log('clicked');
+      return [cursorX, cursorY]
+    })
+
+
+
+    // create a new array with scoring items that are still on the screen
+    this.scoringItems = this.scoringItems.filter((element) => {
+      // check if the player is over (collided with) the garbage item.
+      if (cursorX === element.getXPos() && cursorY === element.getYPos()) {
+        // Do not include this item.
+        console.log('geraakt');
+        return false;
+      }
+      console.log('niks')
+      return true;
+    });
+  }
 }
