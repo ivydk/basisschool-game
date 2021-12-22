@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Hangman - exercise</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+        html {
+            overflow: hidden;
+        }
+    </style>
+
+    <title>Rocket League - start</title>
 </head>
-
 <body>
-    <div id="container">
-        <div id="word">
-            <h2>Please guess this word</h2>
-            <ul id="letters"></ul>
-        </div>
-        <div>
-            <h3>Attempts left: <span id="attempt"></span></h3>
-        </div>
-        <div id="keyboard"></div>
-    </div>
-    <script src="./build/app.js"></script>
+    <canvas id="canvas"></canvas>
+    <script type="module" src="./build/app.js"></script>
 </body>
-
 </html>
