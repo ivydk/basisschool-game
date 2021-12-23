@@ -1,6 +1,6 @@
 import ScoringItem from './ScoringItem.js';
 
-export default class Rocket extends ScoringItem {
+export default class virus extends ScoringItem {
     private type: string;
 
     private canvas: HTMLCanvasElement;

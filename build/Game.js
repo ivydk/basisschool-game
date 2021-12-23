@@ -2,7 +2,7 @@ import GameItem from './GameItem.js';
 import GameLoop from './GameLoop.js';
 import Line from './Line.js';
 import Player from './Player.js';
-import Rocket from './Rocket.js';
+import virus from './Virus.js';
 import Score from './Score.js';
 export default class Game {
     canvas;
@@ -51,7 +51,7 @@ export default class Game {
         this.framecount += 1;
         if ((this.framecount % 60) === 0) {
             this.score.setScore(1);
-            this.virusIsClicked();
+            this.mouseMove();
         }
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.drawPlayer();
@@ -90,18 +90,8 @@ export default class Game {
     }
     createVirus() {
         if (this.framecount % 35 === 0) {
-            this.scoringItems.push(new Rocket('rightToLeft', this.canvas, this.canvas.width, GameItem.randomInteger(0, this.canvas.height - 30), GameItem.loadNewImage('./assets/img/virusSmall.png')));
+            this.scoringItems.push(new virus('rightToLeft', this.canvas, this.canvas.width, GameItem.randomInteger(0, this.canvas.height - 30), GameItem.loadNewImage('./assets/img/virusSmall.png')));
         }
-    }
-    mouseClick() {
-        let cursorX;
-        let cursorY;
-        document.addEventListener('click', function (e) {
-            cursorX = e.pageX;
-            cursorY = e.pageY;
-            console.log(cursorY);
-        });
-        console.log(`y: ${cursorY}, x: ${cursorX}`);
     }
     virusIsClicked() {
         let cursorX;
@@ -110,8 +100,9 @@ export default class Game {
             cursorX = e.pageX;
             cursorY = e.pageY;
             console.log('clicked');
-            return [cursorX, cursorY];
+            return true;
         });
+        console.log(cursorY);
         this.scoringItems = this.scoringItems.filter((element) => {
             if (cursorX === element.getXPos() && cursorY === element.getYPos()) {
                 console.log('geraakt');
@@ -120,6 +111,15 @@ export default class Game {
             console.log('niks');
             return true;
         });
+    }
+    mouseMove() {
+        let pointerX;
+        let pointerY;
+        this.canvas.onmousedown = function (event) {
+            pointerX = event.pageX;
+            pointerY = event.pageY;
+            console.log(`x: ${pointerX}, y: ${pointerY}`);
+        };
     }
 }
 //# sourceMappingURL=Game.js.map

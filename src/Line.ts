@@ -1,5 +1,5 @@
 import GameItem from './GameItem.js';
-import Rocket from './Rocket.js';
+import virus from './Virus.js';
 
 export default class Line {
   private canvas: HTMLCanvasElement;

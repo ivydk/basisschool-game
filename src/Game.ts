@@ -2,7 +2,7 @@ import GameItem from './GameItem.js';
 import GameLoop from './GameLoop.js';
 import Line from './Line.js';
 import Player from './Player.js';
-import Rocket from './Rocket.js';
+import virus from './Virus.js';
 import Score from './Score.js';
 import ScoringItem from './ScoringItem.js';
 
@@ -119,7 +119,7 @@ export default class Game {
 
     if ((this.framecount % 60) === 0) {
       this.score.setScore(1);
-      this.virusIsClicked();
+      this.mouseMove();
     }
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -178,7 +178,7 @@ export default class Game {
   private createVirus() {
     if (this.framecount % 35 === 0) {
       this.scoringItems.push(
-        new Rocket(
+        new virus(
           'rightToLeft',
           this.canvas,
           this.canvas.width,
@@ -189,45 +189,22 @@ export default class Game {
     }
   }
 
-  private mouseClick(): void {
-    let cursorX;
-    let cursorY;
-    document.addEventListener('click', function (e) {
-      cursorX = e.pageX;
-      cursorY = e.pageY;
-      console.log(cursorY);
-    })
-    console.log(`y: ${cursorY}, x: ${cursorX}`);
-  }
-
-  // private getCursorPosition(event: any): void {
-  //     const rect = this.canvas.getBoundingClientRect()
-  //     const x = event.clientX - rect.left
-  //     const y = event.clientY - rect.top
-  //     console.log(`${x}, ${y}`)
-  // }
-
-  // private mouse() {
-  //     this.canvas.addEventListener('mousedown', function (e) {
-  //         this.getCursorPosition(canvas, e)
-  //     })
-  // }
-
   private virusIsClicked() {
     let cursorX: number;
     let cursorY: number;
-    document.addEventListener('click', function (e) {
+
+    document.addEventListener('click', function (e: MouseEvent) {
       cursorX = e.pageX;
       cursorY = e.pageY;
       console.log('clicked');
-      return [cursorX, cursorY]
+      return true
     })
-
-
+    console.log(cursorY);
 
     // create a new array with scoring items that are still on the screen
     this.scoringItems = this.scoringItems.filter((element) => {
       // check if the player is over (collided with) the garbage item.
+
       if (cursorX === element.getXPos() && cursorY === element.getYPos()) {
         // Do not include this item.
         console.log('geraakt');
@@ -236,5 +213,15 @@ export default class Game {
       console.log('niks')
       return true;
     });
+  }
+
+  private mouseMove() {
+    let pointerX: number;
+    let pointerY: number;
+    this.canvas.onmousedown = function (event) {
+      pointerX = event.pageX;
+      pointerY = event.pageY;
+      console.log(`x: ${pointerX}, y: ${pointerY}`);
+    }
   }
 }
