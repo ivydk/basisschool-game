@@ -1,5 +1,5 @@
 import GameItem from './GameItem.js';
-import virus from './Virus.js';
+import Virus from './Virus.js';
 
 export default class Line {
   private canvas: HTMLCanvasElement;

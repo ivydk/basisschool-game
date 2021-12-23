@@ -2,7 +2,7 @@ import GameItem from './GameItem.js';
 import GameLoop from './GameLoop.js';
 import Line from './Line.js';
 import Player from './Player.js';
-import virus from './Virus.js';
+import Virus from './Virus.js';
 import Score from './Score.js';
 import ScoringItem from './ScoringItem.js';
 
@@ -24,9 +24,7 @@ export default class Game {
 
   private line: Line;
 
-  private xMouse: number;
-
-  private yMouse: number;
+  private lives: number;
 
   /**
    * Initialize the game
@@ -53,6 +51,8 @@ export default class Game {
     console.log(this.scoringItems)
 
     this.framecount = 0;
+
+    this.lives = 3;
 
     this.player = this.insertPlayer();
     this.loop();
@@ -117,24 +117,23 @@ export default class Game {
   private loop = () => {
     this.framecount += 1;
 
-    if ((this.framecount % 60) === 0) {
-      this.score.setScore(1);
-      this.mouseMove();
-    }
+    this.mouseMove();
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.drawPlayer();
-    this.drawRockets();
-    this.createVirus();
+    this.drawVirus();
+    this.createVirusAtInterval();
 
-    this.moveRockets();
+    this.moveVirusses();
 
     this.line.drawLine();
 
     this.virusCollidesWithLine();
 
     this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
+
+    this.writeTextToCanvas(`Lives: ${this.lives}`, 30, 120, 600);
     requestAnimationFrame(this.loop);
   };
 
@@ -145,7 +144,7 @@ export default class Game {
     this.player.draw(this.ctx);
   }
 
-  private drawRockets() {
+  private drawVirus() {
     if (this.scoringItems.length !== 0) {
       // draw each scoring item
       this.scoringItems.forEach((scoringItem) => {
@@ -154,7 +153,7 @@ export default class Game {
     }
   }
 
-  private moveRockets() {
+  private moveVirusses() {
     if (this.scoringItems.length !== 0) {
       // draw each scoring item
       this.scoringItems.forEach((scoringItem) => {
@@ -169,16 +168,17 @@ export default class Game {
       // check if the player is over (collided with) the garbage item.
       if (this.line.collidesWithRocket(element)) {
         // Do not include this item.
+        this.lives -= 1;
         return false;
       }
       return true;
     });
   }
 
-  private createVirus() {
+  private createVirusAtInterval() {
     if (this.framecount % 35 === 0) {
       this.scoringItems.push(
-        new virus(
+        new Virus(
           'rightToLeft',
           this.canvas,
           this.canvas.width,
@@ -189,39 +189,42 @@ export default class Game {
     }
   }
 
-  private virusIsClicked() {
-    let cursorX: number;
-    let cursorY: number;
-
-    document.addEventListener('click', function (e: MouseEvent) {
-      cursorX = e.pageX;
-      cursorY = e.pageY;
-      console.log('clicked');
-      return true
-    })
-    console.log(cursorY);
-
-    // create a new array with scoring items that are still on the screen
-    this.scoringItems = this.scoringItems.filter((element) => {
-      // check if the player is over (collided with) the garbage item.
-
-      if (cursorX === element.getXPos() && cursorY === element.getYPos()) {
-        // Do not include this item.
-        console.log('geraakt');
-        return false;
-      }
-      console.log('niks')
-      return true;
-    });
+  /**
+   *
+   * @param other the other object
+   * @returns `true` if the player is on a G
+   */
+  public isVirusHit(other: ScoringItem, xPos: number, yPos: number): boolean {
+    return xPos < other.getXPos() + other.getImage().width
+      && xPos > other.getXPos()
+      && yPos < other.getYPos() + other.getImage().height
+      && yPos > other.getYPos();
   }
 
   private mouseMove() {
     let pointerX: number;
     let pointerY: number;
-    this.canvas.onmousedown = function (event) {
+    this.canvas.onmousedown = (event) => {
       pointerX = event.pageX;
       pointerY = event.pageY;
       console.log(`x: ${pointerX}, y: ${pointerY}`);
+
+      this.scoringItems = this.scoringItems.filter((element) => {
+        // check if the player is over (collided with) the garbage item.
+        if (this.isVirusHit(element, pointerX, pointerY)) {
+          console.log('hit');
+          this.score.setScore(10);
+          // Do not include this item.
+          return false;
+        }
+        return true;
+      });
+    }
+  }
+
+  private isPlayerDead() {
+    if (this.lives < 0) {
+      this.gameLoop.isInState(GameLoop.STATE_IDLE);
     }
   }
 }

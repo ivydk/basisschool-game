@@ -1,5 +1,5 @@
 import ScoringItem from './ScoringItem.js';
-export default class virus extends ScoringItem {
+export default class Virus extends ScoringItem {
     type;
     canvas;
     speed;
