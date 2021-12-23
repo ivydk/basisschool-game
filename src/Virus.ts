@@ -8,14 +8,13 @@ export default class Virus extends ScoringItem {
     private speed: number;
 
     /**
-     * Initialize the Rocket
+     * Initialize the Virus
      *
-     * @param type type of the Rocket
+     * @param type type of the Virus
      * @param canvasWidth width of the canvas
      * @param canvasHeight heighst of the canvas
      */
     public constructor(type: string, canvas: HTMLCanvasElement, xPosition: number, yPosition: number, image: HTMLImageElement) {
-        // super('Rocket', 3);
         super(0, xPosition, yPosition, image);
 
         this.canvas = canvas;
@@ -25,41 +24,22 @@ export default class Virus extends ScoringItem {
 
         this.type = 'RightToLeft'
 
-
-        // let xPosition = ScoringItem.randomInteger(0, canvasWidth - 200);
-        // const yPosition = ScoringItem.randomInteger(0, canvasHeight - 200);
-
-        // if (type === 'RightToLeft') {
-        //     xPosition = canvas.width; //1850
-        //     this.setImage(Rocket.loadNewImage('./assets/img/rocket-horizontal.png'));
-        // }
-
         xPosition = canvas.width; //1850
         this.image = image;
 
-        // this.setXPos(xPosition);
-        // this.setYPos(yPosition);
-
         this.type = type;
-        // this.setSpeed(ScoringItem.randomInteger(1, 5));
-        // this.speed = ScoringItem.randomInteger(0.5, 2);
         this.speed = 1;
     }
 
     /**
-     * Method to move the Rocket
+     * Method to move the Virus
      */
     public move(): void {
         this.setXPos(this.getXPos() - this.speed);
-        // if (this.type === 'RightToLeft') {
-        //     this.setXPos(this.getXPos() - this.speed);
-        // } else {
-        //     this.setYPos(this.getYPos() - this.speed);
-        // }
     }
 
     /**
-     * Checks if Rocket is out of canvas
+     * Checks if Virus is out of canvas
      *
      * @param canvasWidth widht of the canvas
      * @param canvasHeight height of the canvas
@@ -72,7 +52,6 @@ export default class Virus extends ScoringItem {
             }
         } else if (this.getYPos() + this.image.height >= canvasHeight) {
             this.setYPos(0);
-            // this.setXPos(ScoringItem.randomInteger(0, canvasWidth));
             this.xPosition = ScoringItem.randomInteger(0, canvasWidth);
         }
     }
