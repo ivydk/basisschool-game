@@ -1,12 +1,23 @@
-import GameItem from './GameItem.js';
-import GameLoop from './GameLoop.js';
-import Line from './Line.js';
-import Player from './Player.js';
-import Virus from './Virus.js';
-import Score from './Score.js';
-import Bullet from './Bullet.js';
-import Worm from './Worm.js';
-export default class Game {
+import GameItem from '../GameItem.js';
+import GameLoop from '../GameLoop.js';
+import Line from '../Line.js';
+import Player from '../Player.js';
+import Virus from '../Virus.js';
+import Score from '../Score.js';
+import Bullet from '../Bullet.js';
+import Worm from '../Worm.js';
+import Game from '../Game.js';
+import Scene from './Scene.js';
+export default class Level1 extends Scene {
+    processInput() {
+        throw new Error('Method not implemented.');
+    }
+    update(elapsed) {
+        throw new Error('Method not implemented.');
+    }
+    render() {
+        throw new Error('Method not implemented.');
+    }
     canvas;
     ctx;
     gameLoop;
@@ -18,7 +29,8 @@ export default class Game {
     lives;
     bullets;
     alive;
-    constructor(canvas) {
+    constructor(canvas, game) {
+        super(game);
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = window.innerWidth;
@@ -132,7 +144,7 @@ export default class Game {
                 this.scoringItems.push(new Virus('rightToLeft', this.canvas, this.canvas.width, GameItem.randomInteger(0, this.canvas.height - 30), GameItem.loadNewImage('./assets/img/virusSmall.png')));
             }
             if (randomNumber === 3) {
-                this.scoringItems.push(new Worm('rightToLeft', this.canvas, this.canvas.width, GameItem.randomInteger(0, this.canvas.height - 30), GameItem.loadNewImage('./assets/img/mworm.png')));
+                this.scoringItems.push(new Worm('rightToLeft', this.canvas, this.canvas.width, GameItem.randomInteger(0, this.canvas.height - 30), GameItem.loadNewImage('../assets/img/mworm.png')));
             }
         }
     }
@@ -146,4 +158,4 @@ export default class Game {
         };
     }
 }
-//# sourceMappingURL=Game.js.map
+//# sourceMappingURL=Level1.js.map

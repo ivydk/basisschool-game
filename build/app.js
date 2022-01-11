@@ -9,4 +9,5 @@ function mouseXposYpos(e) {
 const startGame = () => {
     new Game(document.querySelector('#canvas'));
 };
+const probeersel = 7;
 //# sourceMappingURL=app.js.map

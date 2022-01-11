@@ -19,3 +19,5 @@ const startGame = (): void => {
 // window.addEventListener('load',
 //   () => new Game(document.querySelector('#canvas')));
 
+const probeersel = 7;
+
