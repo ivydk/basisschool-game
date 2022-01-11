@@ -12,7 +12,7 @@ export default class Virus extends ScoringItem {
      *
      * @param type type of the Virus
      * @param canvasWidth width of the canvas
-     * @param canvasHeight heighst of the canvas
+     * @param canvasHeight height of the canvas
      */
     public constructor(type: string, canvas: HTMLCanvasElement, xPosition: number, yPosition: number, image: HTMLImageElement) {
         super(0, xPosition, yPosition, image);
@@ -41,7 +41,7 @@ export default class Virus extends ScoringItem {
     /**
      * Checks if Virus is out of canvas
      *
-     * @param canvasWidth widht of the canvas
+     * @param canvasWidth width of the canvas
      * @param canvasHeight height of the canvas
      */
     public outOfCanvas(canvasWidth: number, canvasHeight: number): void {

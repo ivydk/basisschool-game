@@ -4,26 +4,23 @@ import Virus from './Virus.js';
 export default class Line {
   private canvas: HTMLCanvasElement;
 
-  private ctx: CanvasRenderingContext2D;
-
   private xPosition: number;
 
-  constructor(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    this.ctx = ctx;
+  constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.xPosition = 350;
   }
 
-  public drawLine(): void {
+  public drawLine(ctx: CanvasRenderingContext2D): void {
     // set line stroke and line width
-    this.ctx.strokeStyle = 'black';
-    this.ctx.lineWidth = 5;
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 5;
 
     // draw a red line
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.xPosition, 0);
-    this.ctx.lineTo(this.xPosition, this.canvas.height);
-    this.ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(this.xPosition, 0);
+    ctx.lineTo(this.xPosition, this.canvas.height);
+    ctx.stroke();
   }
 
   /**

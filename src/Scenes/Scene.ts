@@ -23,7 +23,11 @@ export default abstract class Scene {
         this.game = game;
     }
 
+    /**
+     * Handles any user input that has happened since the last call
+     */
     public abstract processInput(): void;
+
     /**
      * Advances the game simulation one step. It may run AI and physics (usually
      * in that order). The return value of this method determines what the `GameLoop`
@@ -46,4 +50,29 @@ export default abstract class Scene {
      * Draw the game so the player can see what happened
      */
     public abstract render(): void;
+
+    /**
+  * l
+  *
+  * @param text l
+  * @param xPos l
+  * @param yPos l
+  * @param fontSize l
+  * @param color l
+  * @param alignment l
+  */
+    protected writeTextToCanvas(
+        text: string,
+        xPos: number,
+        yPos: number,
+        fontSize: number,
+        color: string,
+        alignment: CanvasTextAlign = 'center',
+    ): void {
+        const ctx = this.game.canvas.getContext('2d');
+        ctx.font = `${fontSize}px sans-serif`;
+        ctx.fillStyle = color;
+        ctx.textAlign = alignment;
+        ctx.fillText(text, xPos, yPos);
+    }
 }

@@ -23,7 +23,7 @@ export default class Bullet extends GameItem {
     }
 
     /**
-     * moves the bullit
+     * moves the bullet
      */
     public move(): void {
         this.xPosition += this.speed;
