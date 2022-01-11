@@ -140,7 +140,7 @@ export default class Game {
 
     this.virusCollidesWithLine();
 
-    this.bullitCollidesWithVirus();
+    this.bulletCollidesWithVirus();
 
     this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
 
@@ -169,8 +169,8 @@ export default class Game {
 
     if (this.bullets.length !== 0) {
       // draw each scoring item
-      this.bullets.forEach((bullit) => {
-        bullit.draw(this.ctx);
+      this.bullets.forEach((bullet) => {
+        bullet.draw(this.ctx);
       });
     }
   }
@@ -188,8 +188,8 @@ export default class Game {
 
     if (this.bullets.length !== 0) {
       // draw each scoring item
-      this.bullets.forEach((bullit) => {
-        bullit.move();
+      this.bullets.forEach((bullet) => {
+        bullet.move();
       });
     }
   }
@@ -214,21 +214,24 @@ export default class Game {
     });
   }
 
-  private bullitCollidesWithVirus() {
+
+  /**
+   * collidesWithVirus(element) = 'true', removes the item from the array
+   */
+  private bulletCollidesWithVirus() {
     if (this.bullets.length !== 0) {
       // draw each scoring item
-      this.bullets.forEach((bullit) => {
+      this.bullets.forEach((bullet) => {
         // create a new array with scoring items that are still on the screen
         this.scoringItems = this.scoringItems.filter((element) => {
           // check if the player is over (collided with) the garbage item.
-          if (bullit.collidesWithVirus(element)) {
+          if (bullet.collidesWithVirus(element)) {
             // Do not include this item.
             this.score.setScore(1);
             return false;
           }
           return true;
         });
-
       });
     }
   }

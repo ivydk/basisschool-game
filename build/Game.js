@@ -62,7 +62,7 @@ export default class Game {
         this.moveItems();
         this.line.drawLine();
         this.virusCollidesWithLine();
-        this.bullitCollidesWithVirus();
+        this.bulletCollidesWithVirus();
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 30, 30, 40);
         this.writeTextToCanvas(`Lives: ${this.lives}`, 30, 120, 600);
         if (this.alive === false) {
@@ -112,7 +112,7 @@ export default class Game {
             return true;
         });
     }
-    bullitCollidesWithVirus() {
+    bulletCollidesWithVirus() {
         if (this.bullets.length !== 0) {
             this.bullets.forEach((bullit) => {
                 this.scoringItems = this.scoringItems.filter((element) => {

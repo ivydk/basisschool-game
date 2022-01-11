@@ -1,4 +1,4 @@
-import Game from './Game.js';
+import Game from '../Game.js';
 /**
  * A superclass for objects that must be able to be animated by a `GameLoop`.
  *

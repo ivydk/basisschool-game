@@ -8,7 +8,7 @@ export default class Worm extends ScoringItem {
 
     private speed: number;
 
-    private framcountWorm: number;
+    private frameCountWorm: number;
 
     private moveWay: string;
 
@@ -17,7 +17,7 @@ export default class Worm extends ScoringItem {
      *
      * @param type type of the Virus
      * @param canvasWidth width of the canvas
-     * @param canvasHeight heighst of the canvas
+     * @param canvasHeight height of the canvas
      */
     public constructor(type: string, canvas: HTMLCanvasElement, xPosition: number, yPosition: number, image: HTMLImageElement) {
         super(0, xPosition, yPosition, image);
@@ -34,7 +34,7 @@ export default class Worm extends ScoringItem {
 
         this.type = type;
         this.speed = 1;
-        this.framcountWorm = 0;
+        this.frameCountWorm = 0;
         this.moveWay = 'up';
 
     }
@@ -43,10 +43,10 @@ export default class Worm extends ScoringItem {
      * Method to move the Virus
      */
     public move(): void {
-        this.framcountWorm += 1;
+        this.frameCountWorm += 1;
         const randomFrameCount = GameItem.randomInteger(60, 200);
 
-        if (this.framcountWorm % randomFrameCount === 0 || this.outOfCanvas()) {
+        if (this.frameCountWorm % randomFrameCount === 0 || this.outOfCanvas()) {
             if (this.moveWay === 'up') {
                 this.moveWay = 'down';
                 console.log('down');

@@ -36,6 +36,12 @@ export default class Bullet extends GameItem {
         }
     }
 
+    /**
+     * checks if the bullet collides with virus
+     *
+     * @param scoringItem
+     * @returns
+     */
     public collidesWithVirus(scoringItem: ScoringItem) {
         return this.getXPos() < scoringItem.getXPos() + scoringItem.getImage().width
             && this.getXPos() + this.getImage().width > scoringItem.getXPos()

@@ -6,7 +6,7 @@ export default class GameItem {
     protected image: HTMLImageElement;
 
     /**
-       * Initalize the GameItem
+       * Initialize the GameItem
        *
        * @param xPos position on the x-axis
        * @param yPos position on the y-axis
