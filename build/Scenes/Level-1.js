@@ -1,5 +1,6 @@
 import Bullet from "../Bullet.js";
 import Game from "../Game.js";
+import GameItem from "../GameItem.js";
 import Line from "../Line.js";
 import Player from "../Player.js";
 import Score from "../Score.js";
@@ -7,6 +8,7 @@ import Virus from "../Virus.js";
 import Worm from "../Worm.js";
 import GameOver from "./GameOver.js";
 import Scene from "./Scene.js";
+import TrojanHorse from "../TrojanHorse.js";
 export default class Level extends Scene {
     isAlive;
     scoringItems;
@@ -34,13 +36,16 @@ export default class Level extends Scene {
         else if (Game.randomNumber(1, 100) === 1) {
             this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('../assets/img/mworm.png')));
         }
+        else if (Game.randomNumber(1, 100) === 1) {
+            this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('../assets/img/TrojanHorse.png')));
+        }
         this.mouseMove();
         this.bulletCollidesWithVirus();
         this.virusCollidesWithLine();
     }
     update(elapsed) {
         if (this.isAlive) {
-            return new GameOver(this.game);
+            return new GameOver(this.game, 0);
         }
         return null;
     }
@@ -88,6 +93,9 @@ export default class Level extends Scene {
         if (this.bullets.length !== 0) {
             this.bullets.forEach((bullet) => {
                 this.scoringItems = this.scoringItems.filter((element) => {
+                    if (element instanceof TrojanHorse) {
+                        this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, element.getXPos(), element.getYPos() + 5, GameItem.loadNewImage('./assets/img/virusSmall.png')));
+                    }
                     if (bullet.collidesWithVirus(element)) {
                         this.score.setScore(1);
                         return false;

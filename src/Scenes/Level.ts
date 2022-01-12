@@ -1,5 +1,6 @@
 import Bullet from "../Bullet.js";
 import Game from "../Game.js";
+import GameItem from "../GameItem.js";
 import Line from "../Line.js";
 import Player from "../Player.js";
 import Score from "../Score.js";
@@ -8,9 +9,11 @@ import Virus from "../Virus.js";
 import Worm from "../Worm.js";
 import GameOver from "./GameOver.js";
 import Scene from "./Scene.js";
+import TrojanHorse from "../TrojanHorse.js";
+import Spy from "../Spy.js";
 
 export default class Level extends Scene {
-    private isAlive: boolean;
+    protected isAlive: boolean;
 
     private scoringItems: ScoringItem[];
 
@@ -18,24 +21,26 @@ export default class Level extends Scene {
 
     private bullets: Bullet[];
 
-    private score: Score;
+    protected score: Score;
 
     private line: Line;
 
-    private lives: number;
+    protected lives: number;
 
-    public constructor(game: Game) {
+    protected currentLevel: number;
+
+    public constructor(game: Game, score: Score, lives: number) {
         super(game);
         console.log('Level 1')
         this.isAlive = false;
 
         this.scoringItems = [];
         this.bullets = [];
-        this.score = new Score();
+        this.score = score;
         this.line = new Line(this.game.canvas)
 
         // starting value lives
-        this.lives = 3;
+        this.lives = lives;
 
         this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('../assets/img/tommie.png'))
     }
@@ -66,6 +71,22 @@ export default class Level extends Scene {
                 Game.randomNumber(0, this.game.canvas.height - 30),
                 Game.loadNewImage('../assets/img/mworm.png'),
             ));
+        } else if (Game.randomNumber(1, 100) === 1) {
+            this.scoringItems.push(new TrojanHorse(
+                'rightToLeft',
+                this.game.canvas,
+                this.game.canvas.width,
+                GameItem.randomInteger(0, this.game.canvas.height - 30),
+                GameItem.loadNewImage('../assets/img/TrojanHorse.png'),
+            ));
+        } else if (Game.randomNumber(1, 300) === 1) {
+            this.scoringItems.push(new Spy(
+                'rightToLeft',
+                this.game.canvas,
+                800,
+                GameItem.randomInteger(0, this.game.canvas.height - 30),
+                GameItem.loadNewImage('../assets/img/spy.png'),
+            ));
         }
 
         this.mouseMove();
@@ -78,11 +99,7 @@ export default class Level extends Scene {
   * @returns 'null' if the Scene does not need to proceed to the next one
   */
     public update(elapsed: number): Scene {
-        if (this.isAlive) {
-            // Proceed to the next screen
-            return new GameOver(this.game);
-        }
-        return null;
+        return null
     }
 
     public render(): void {
@@ -90,9 +107,9 @@ export default class Level extends Scene {
         // Clear the screen
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
-        this.writeTextToCanvas('Level 1', 25, 50, 40, 'Green', "left");
-        this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "black", "left",);
-        this.writeTextToCanvas(`Lives: ${this.lives}`, 25, 110, 25, "black", "left");
+        this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'Green', "left");
+        this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "white", "left",);
+        this.writeTextToCanvas(`Lives: ${this.lives}`, 25, 110, 25, "white", "left");
 
         // draw everything
         this.player.draw(ctx);
@@ -149,9 +166,6 @@ export default class Level extends Scene {
         }
     }
 
-    /**
- * collidesWithVirus(element) = 'true', removes the item from the array
- */
     private bulletCollidesWithVirus() {
         if (this.bullets.length !== 0) {
             // draw each scoring item
@@ -162,10 +176,17 @@ export default class Level extends Scene {
                     if (bullet.collidesWithVirus(element)) {
                         // Do not include this item.
                         this.score.setScore(1);
+
+                        // checks if the element is a trojan horse
+                        if (element instanceof TrojanHorse) {
+                            // TODO: hier moeten meerdere virussen komen op ongeveer dezelfde plaats
+                        }
+
                         return false;
                     }
                     return true;
                 });
+
             });
         }
     }

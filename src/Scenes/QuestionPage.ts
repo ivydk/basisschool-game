@@ -1,6 +1,8 @@
 import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
-import Level from "./Level-1.js";
+import Score from "../Score.js";
+import Level from "./Level.js";
+import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
 import Start from "./Start.js";
 
@@ -11,9 +13,13 @@ export default class QuestionPage extends Scene {
 
     private keyListener: KeyListener;
 
-    public constructor(game: Game) {
+    private score: Score;
+
+    public constructor(game: Game, score: Score) {
         super(game);
         console.log('Question page');
+
+        this.score = score;
 
         this.keyListener = new KeyListener();
     }
@@ -36,8 +42,8 @@ export default class QuestionPage extends Scene {
         if (this.isFinished) {
             // Proceed to the next screen
             if (this.answer === true) {
-                // TODO: get back to the score you had when you died
-                return new Level(this.game);
+                // TODO: go back to the current level you were on
+                return new Level_1(this.game, this.score, 0);
             } else if (this.answer === false) {
                 return new Start(this.game);
             }

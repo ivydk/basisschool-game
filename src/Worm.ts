@@ -49,10 +49,8 @@ export default class Worm extends ScoringItem {
         if (this.frameCountWorm % randomFrameCount === 0 || this.outOfCanvas()) {
             if (this.moveWay === 'up') {
                 this.moveWay = 'down';
-                console.log('down');
             } else {
                 this.moveWay = 'up';
-                console.log('up');
             }
         }
 

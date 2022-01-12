@@ -1,6 +1,7 @@
 import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
-import Level from "./Level-1.js";
+import Score from "../Score.js";
+import Level from "./Level.js";
 import QuestionPage from "./QuestionPage.js";
 import Scene from "./Scene.js";
 import Start from "./Start.js";
@@ -16,10 +17,13 @@ export default class GameOver extends Scene {
 
     private keyListener: KeyListener;
 
-    public constructor(game: Game) {
+    private score: Score;
+
+    public constructor(game: Game, score: Score) {
         super(game);
         console.log('Game Over');
 
+        this.score = score;
         this.keyListener = new KeyListener();
     }
 
@@ -28,7 +32,7 @@ export default class GameOver extends Scene {
             this.isFinished = true;
             this.answer = GameOver.NEXT_SCREEN_START;
         }
-        if (this.keyListener.isKeyDown(KeyListener.KEY_Q)) {
+        if (this.keyListener.isKeyDown(KeyListener.KEY_V)) {
             this.isFinished = true;
             this.answer = GameOver.NEXT_SCREEN_QUESTION
         }
@@ -44,7 +48,7 @@ export default class GameOver extends Scene {
             if (this.answer === 0) {
                 return new Start(this.game);
             } else if (this.answer === 1) {
-                return new QuestionPage(this.game);
+                return new QuestionPage(this.game, this.score);
             }
         }
         return null;
@@ -55,9 +59,9 @@ export default class GameOver extends Scene {
         // Clear the screen
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
-        this.writeTextToCanvas('Game over', this.game.canvas.width / 2, this.game.canvas.height / 2, 50, "green", "center");
-        this.writeTextToCanvas('Druk op enter om terug te gaan naar het start scherm', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "black", "center");
-        this.writeTextToCanvas('Druk op Q als je een exta leven wilt', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "black", "center");
+        this.writeTextToCanvas('Game over', this.game.canvas.width / 2, this.game.canvas.height / 2, 50, "white", "center");
+        this.writeTextToCanvas('Druk op enter om terug te gaan naar het start scherm', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "white", "center");
+        this.writeTextToCanvas('Druk op V als je een exta leven wilt', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "white", "center");
         // this.writeTextToCanvas(`${String.fromCodePoint(129440, 129440, 129440)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "green", "center");
 
         // TODO: random question about viruses, if the answer is correct you will get a extra live

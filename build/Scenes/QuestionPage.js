@@ -1,14 +1,16 @@
 import KeyListener from "../KeyListener.js";
-import Level from "./Level-1.js";
+import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
 import Start from "./Start.js";
 export default class QuestionPage extends Scene {
     answer;
     isFinished;
     keyListener;
-    constructor(game) {
+    score;
+    constructor(game, score) {
         super(game);
         console.log('Question page');
+        this.score = score;
         this.keyListener = new KeyListener();
     }
     processInput() {
@@ -24,7 +26,7 @@ export default class QuestionPage extends Scene {
     update(elapsed) {
         if (this.isFinished) {
             if (this.answer === true) {
-                return new Level(this.game);
+                return new Level_1(this.game, this.score, 0);
             }
             else if (this.answer === false) {
                 return new Start(this.game);
