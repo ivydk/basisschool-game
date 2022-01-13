@@ -26,21 +26,21 @@ export default class Level extends Scene {
         this.score = score;
         this.line = new Line(this.game.canvas);
         this.lives = lives;
-        this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('../assets/img/tommie.png'));
+        this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('assets/img/tommie.png'));
     }
     processInput() {
         this.moveItems();
         if (Game.randomNumber(1, 20) === 1) {
-            this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('../assets/img/virusSmall.png')));
+            this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/virusSmall.png')));
         }
         else if (Game.randomNumber(1, 100) === 1) {
-            this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('../assets/img/mworm.png')));
+            this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/mworm.png')));
         }
         else if (Game.randomNumber(1, 100) === 1) {
-            this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('../assets/img/TrojanHorse.png')));
+            this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/TrojanHorse.png')));
         }
         else if (Game.randomNumber(1, 300) === 1) {
-            this.scoringItems.push(new Spy('rightToLeft', this.game.canvas, 800, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('../assets/img/spy.png')));
+            this.scoringItems.push(new Spy('rightToLeft', this.game.canvas, 800, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/spy.png')));
         }
         this.mouseMove();
         this.bulletCollidesWithVirus();
