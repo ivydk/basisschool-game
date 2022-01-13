@@ -33,13 +33,13 @@ export default class Level extends Scene {
         if (Game.randomNumber(1, 20) === 1) {
             this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/virusSmall.png')));
         }
-        else if (Game.randomNumber(1, 100) === 1) {
+        else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 2) {
             this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/mworm.png')));
         }
-        else if (Game.randomNumber(1, 100) === 1) {
+        else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 3) {
             this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/TrojanHorse.png')));
         }
-        else if (Game.randomNumber(1, 300) === 1) {
+        else if (Game.randomNumber(1, 300) === 1 && this.currentLevel >= 4) {
             this.scoringItems.push(new Spy('rightToLeft', this.game.canvas, 800, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/spy.png')));
         }
         this.mouseMove();
@@ -96,6 +96,8 @@ export default class Level extends Scene {
                     if (bullet.collidesWithVirus(element)) {
                         this.score.setScore(1);
                         if (element instanceof TrojanHorse) {
+                            console.log(element.getXPos());
+                            this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, element.getXPos(), element.getYPos() + 50, Game.loadNewImage('assets/img/virusSmall.png')));
                         }
                         return false;
                     }

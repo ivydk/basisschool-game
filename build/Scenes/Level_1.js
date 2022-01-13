@@ -10,9 +10,9 @@ export default class Level_1 extends Level {
     update(elapsed) {
         if (this.isAlive) {
             this.isAlive = true;
-            return new GameOver(this.game, this.score);
+            return new GameOver(this.game, this.score, this.currentLevel);
         }
-        if (this.score.getScore() >= 20) {
+        if (this.score.getScore() >= 50) {
             return new Level_2(this.game, this.score, this.lives + 1);
         }
         return null;

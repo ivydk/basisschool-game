@@ -6,7 +6,7 @@ export default class Line {
         this.xPosition = 350;
     }
     drawLine(ctx) {
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = 'green';
         ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.moveTo(this.xPosition, 0);

@@ -9,9 +9,11 @@ export default class GameOver extends Scene {
     isFinished;
     keyListener;
     score;
-    constructor(game, score) {
+    currentLevel;
+    constructor(game, score, currentLevel) {
         super(game);
         console.log('Game Over');
+        this.currentLevel = currentLevel;
         this.score = score;
         this.keyListener = new KeyListener();
     }
@@ -31,7 +33,7 @@ export default class GameOver extends Scene {
                 return new Start(this.game);
             }
             else if (this.answer === 1) {
-                return new QuestionPage(this.game, this.score);
+                return new QuestionPage(this.game, this.score, this.currentLevel);
             }
         }
         return null;

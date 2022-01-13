@@ -3,16 +3,15 @@
 import Game from "../Game.js";
 import Score from "../Score.js";
 import GameOver from "./GameOver.js";
-import Scene from "./Scene.js";
 import Level from "./Level.js";
-import Level_2 from "./Level_2.js";
+import Level_4 from "./Level_4.js";
+import Scene from "./Scene.js";
 
-export default class Level_1 extends Level {
-
+export default class Level_3 extends Level {
     public constructor(game: Game, score: Score, lives: number) {
         super(game, score, lives)
-        this.score = score;
-        this.currentLevel = 1;
+
+        this.currentLevel = 3;
     }
 
     public update(elapsed: number): Scene {
@@ -22,11 +21,11 @@ export default class Level_1 extends Level {
             return new GameOver(this.game, this.score, this.currentLevel);
         }
 
-        if (this.score.getScore() >= 50) {
+        if (this.score.getScore() >= 300) {
             // Proceed to the next screen
-            // TODO: fix the lives
-            return new Level_2(this.game, this.score, this.lives + 1);
+            return new Level_4(this.game, this.score, this.lives + 1);
         }
+
         return null;
     }
 }

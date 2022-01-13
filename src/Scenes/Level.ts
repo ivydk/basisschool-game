@@ -49,7 +49,6 @@ export default class Level extends Scene {
      * Handles any user input that has happened since the last call
      */
     public processInput(): void {
-        // TODO: check if the score is high enough for a new level
 
         this.moveItems();
 
@@ -63,7 +62,7 @@ export default class Level extends Scene {
                 Game.loadNewImage('assets/img/virusSmall.png'),
             ));
             // Makes new Worms if the random number is equal to 1
-        } else if (Game.randomNumber(1, 100) === 1) {
+        } else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 2) {
             this.scoringItems.push(new Worm(
                 'rightToLeft',
                 this.game.canvas,
@@ -71,7 +70,7 @@ export default class Level extends Scene {
                 Game.randomNumber(0, this.game.canvas.height - 30),
                 Game.loadNewImage('assets/img/mworm.png'),
             ));
-        } else if (Game.randomNumber(1, 100) === 1) {
+        } else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 3) {
             this.scoringItems.push(new TrojanHorse(
                 'rightToLeft',
                 this.game.canvas,
@@ -79,7 +78,7 @@ export default class Level extends Scene {
                 GameItem.randomInteger(0, this.game.canvas.height - 30),
                 GameItem.loadNewImage('assets/img/TrojanHorse.png'),
             ));
-        } else if (Game.randomNumber(1, 300) === 1) {
+        } else if (Game.randomNumber(1, 300) === 1 && this.currentLevel >= 4) {
             this.scoringItems.push(new Spy(
                 'rightToLeft',
                 this.game.canvas,
@@ -179,6 +178,14 @@ export default class Level extends Scene {
 
                         // checks if the element is a trojan horse
                         if (element instanceof TrojanHorse) {
+                            console.log(element.getXPos());
+                            this.scoringItems.push(new Virus(
+                                'rightToLeft',
+                                this.game.canvas,
+                                element.getXPos(),
+                                element.getYPos() + 50,
+                                Game.loadNewImage('assets/img/virusSmall.png'),
+                            ));
                             // TODO: hier moeten meerdere virussen komen op ongeveer dezelfde plaats
                         }
 

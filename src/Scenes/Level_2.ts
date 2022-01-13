@@ -4,6 +4,7 @@ import Game from "../Game.js";
 import Score from "../Score.js";
 import GameOver from "./GameOver.js";
 import Level from "./Level.js";
+import Level_3 from "./Level_3.js";
 import Scene from "./Scene.js";
 
 export default class Level_2 extends Level {
@@ -13,13 +14,18 @@ export default class Level_2 extends Level {
         this.currentLevel = 2;
     }
 
-
     public update(elapsed: number): Scene {
         if (this.isAlive) {
             // Proceed to the next screen
             this.isAlive = true;
-            return new GameOver(this.game, this.score);
+            return new GameOver(this.game, this.score, this.currentLevel);
         }
+
+        if (this.score.getScore() >= 150) {
+            // Proceed to the next screen
+            return new Level_3(this.game, this.score, this.lives + 1);
+        }
+
         return null;
     }
 }

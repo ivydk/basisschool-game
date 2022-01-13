@@ -13,7 +13,7 @@ export default class Line {
 
   public drawLine(ctx: CanvasRenderingContext2D): void {
     // set line stroke and line width
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = 'green';
     ctx.lineWidth = 5;
 
     // draw a red line

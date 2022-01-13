@@ -1,20 +1,20 @@
 import GameOver from "./GameOver.js";
+import HighScore from "./Highscore.js";
 import Level from "./Level.js";
-import Level_3 from "./Level_3.js";
-export default class Level_2 extends Level {
+export default class Level_4 extends Level {
     constructor(game, score, lives) {
         super(game, score, lives);
-        this.currentLevel = 2;
+        this.currentLevel = 4;
     }
     update(elapsed) {
         if (this.isAlive) {
             this.isAlive = true;
             return new GameOver(this.game, this.score, this.currentLevel);
         }
-        if (this.score.getScore() >= 150) {
-            return new Level_3(this.game, this.score, this.lives + 1);
+        if (this.score.getScore() >= 1000) {
+            return new HighScore(this.game, this.score, this.currentLevel);
         }
         return null;
     }
 }
-//# sourceMappingURL=Level_2.js.map
+//# sourceMappingURL=Level_4.js.map
