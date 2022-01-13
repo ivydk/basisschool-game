@@ -1,10 +1,10 @@
-# Installing TypeScript
+# Installing TypeScript #
 
 This is a skeleton app for people who want to use TypeScript. A docker-compose file is included for those who want to run it in a container.
 
 You don't have to use the docker-compose file if you're fine with installing NodeJS and NPM locally. Feel free to delete it if that's the case.
 
-## Instructions
+## Instructions ##
 
 1. Clone this repository to your pc
 2. Make sure you have [NodeJS](https://nodejs.org/en/download/) installed (preferably the LTS version). This will also install `npm`.
