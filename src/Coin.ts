@@ -1,22 +1,18 @@
 import ScoringItem from './ScoringItem.js';
 
-export default class TrojanHorse extends ScoringItem {
+export default class Coin extends ScoringItem {
     private type: string;
 
     private canvas: HTMLCanvasElement;
 
     private speed: number;
 
-    private isHit: boolean;
-
-    private lives: number;
-
     /**
-     * Initialize the Virus
+     * Initialize the Coin
      *
-     * @param type type of the Virus
+     * @param type type of the Coin
      * @param canvasWidth width of the canvas
-     * @param canvasHeight heights of the canvas
+     * @param canvasHeight height of the canvas
      */
     public constructor(type: string, canvas: HTMLCanvasElement, xPosition: number, yPosition: number, image: HTMLImageElement) {
         super(0, xPosition, yPosition, image);
@@ -32,12 +28,7 @@ export default class TrojanHorse extends ScoringItem {
         this.image = image;
 
         this.type = type;
-        this.speed = 0.5;
-
-        this.isHit = false;
-
-        // how many times do you need to shoot the horse
-        this.lives = 3;
+        this.speed = 1, 5;
     }
 
     /**
@@ -64,30 +55,4 @@ export default class TrojanHorse extends ScoringItem {
             this.xPosition = ScoringItem.randomInteger(0, canvasWidth);
         }
     }
-
-    /**
-     * When you call this function it will subtract 1 from the variable lives
-     */
-    public subtractLivesWhenHit() {
-        this.lives -= 1;
-    }
-
-    /**
-     *
-     * @returns `true` is the horse is dead
-     */
-    public isDead(): boolean {
-        if (this.lives <= 0) {
-            return true
-        }
-        return false
-    }
-
-    public getIsHit = (): boolean => this.isHit;
-
-    public setIsHit = (isHit: boolean) => {
-        this.isHit = isHit;
-    }
-
-    public getLives = (): number => this.lives;
 }

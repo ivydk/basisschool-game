@@ -1,6 +1,7 @@
 import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Score from "../Score.js";
+import Coins from "../Coins.js";
 import Level from "./Level.js";
 import QuestionPage from "./QuestionPage.js";
 import Scene from "./Scene.js";
@@ -14,15 +15,18 @@ export default class HighScore extends Scene {
 
     private score: Score;
 
+    private coins: Coins;
+
     private currentLevel: number;
 
-    public constructor(game: Game, score: Score, currentLevel: number) {
+    public constructor(game: Game, score: Score, coins: Coins, currentLevel: number) {
         super(game);
         console.log('Game Over');
 
         this.currentLevel = currentLevel;
 
         this.score = score;
+        this.coins = coins;
         this.keyListener = new KeyListener();
     }
 

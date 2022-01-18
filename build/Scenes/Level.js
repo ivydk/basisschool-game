@@ -8,25 +8,32 @@ import Worm from "../Worm.js";
 import Scene from "./Scene.js";
 import TrojanHorse from "../TrojanHorse.js";
 import Spy from "../Spy.js";
+import Coin from "../Coin.js";
 export default class Level extends Scene {
     isAlive;
     scoringItems;
     player;
     bullets;
     score;
+    coins;
     line;
     lives;
     currentLevel;
-    constructor(game, score, lives) {
+    maxBullets;
+    pointsToLevelUp;
+    bulletsShot;
+    constructor(game, score, coins, lives) {
         super(game);
         console.log('Level 1');
         this.isAlive = false;
         this.scoringItems = [];
         this.bullets = [];
         this.score = score;
+        this.coins = coins;
         this.line = new Line(this.game.canvas);
+        this.bulletsShot = 0;
         this.lives = lives;
-        this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('assets/img/tommie.png'));
+        this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('assets/img/player_boy.png'));
     }
     processInput() {
         this.moveItems();
@@ -36,15 +43,19 @@ export default class Level extends Scene {
         else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 2) {
             this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/mworm.png')));
         }
-        else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 3) {
+        else if (Game.randomNumber(1, 100) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/TrojanHorse.png')));
         }
         else if (Game.randomNumber(1, 300) === 1 && this.currentLevel >= 4) {
             this.scoringItems.push(new Spy('rightToLeft', this.game.canvas, 800, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/spy.png')));
         }
-        this.mouseMove();
+        else if (Game.randomNumber(1, 100) === 1 && this.currentLevel > 0) {
+            this.scoringItems.push(new Coin('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/coin.png')));
+        }
+        this.mouseClick();
         this.bulletCollidesWithVirus();
         this.virusCollidesWithLine();
+        this.deleteBulletWhenHit();
     }
     update(elapsed) {
         return null;
@@ -55,6 +66,8 @@ export default class Level extends Scene {
         this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'Green', "left");
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "white", "left");
         this.writeTextToCanvas(`Lives: ${this.lives}`, 25, 110, 25, "white", "left");
+        this.writeTextToCanvas(`Bullets left: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
+        this.writeTextToCanvas(`Coins: ${this.coins.getCoins()}`, 25, 160, 25, "white", "left");
         this.player.draw(ctx);
         this.line.drawLine(ctx);
         if (this.scoringItems.length !== 0) {
@@ -80,13 +93,16 @@ export default class Level extends Scene {
             });
         }
     }
-    mouseMove() {
+    mouseClick() {
         let pointerX;
         let pointerY;
         this.game.canvas.onmousedown = (event) => {
             pointerX = event.pageX;
             pointerY = event.pageY;
-            this.bullets.push(new Bullet(pointerX, pointerY, this.game.canvas));
+            if (this.bulletsShot < this.maxBullets) {
+                this.bulletsShot += 1;
+                this.bullets.push(new Bullet(pointerX, pointerY, this.game.canvas));
+            }
         };
     }
     bulletCollidesWithVirus() {
@@ -95,9 +111,21 @@ export default class Level extends Scene {
                 this.scoringItems = this.scoringItems.filter((element) => {
                     if (bullet.collidesWithVirus(element)) {
                         this.score.setScore(1);
+                        bullet.setIsHit();
                         if (element instanceof TrojanHorse) {
-                            console.log(element.getXPos());
-                            this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, element.getXPos(), element.getYPos() + 50, Game.loadNewImage('assets/img/virusSmall.png')));
+                            console.log(element.getLives());
+                            element.subtractLivesWhenHit();
+                            if (element.isDead()) {
+                                return false;
+                            }
+                            return true;
+                        }
+                        if (element instanceof Spy) {
+                            element.subtractLivesWhenHit();
+                            if (element.isDead()) {
+                                return false;
+                            }
+                            return true;
                         }
                         return false;
                     }
@@ -115,6 +143,14 @@ export default class Level extends Scene {
                 else {
                     this.isAlive = true;
                 }
+                return false;
+            }
+            return true;
+        });
+    }
+    deleteBulletWhenHit() {
+        this.bullets = this.bullets.filter((element) => {
+            if (element.IsHit()) {
                 return false;
             }
             return true;

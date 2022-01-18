@@ -1,9 +1,8 @@
 import ScoringItem from './ScoringItem.js';
-export default class Spy extends ScoringItem {
+export default class Coin extends ScoringItem {
     type;
     canvas;
     speed;
-    lives;
     constructor(type, canvas, xPosition, yPosition, image) {
         super(0, xPosition, yPosition, image);
         this.canvas = canvas;
@@ -12,9 +11,8 @@ export default class Spy extends ScoringItem {
         this.type = 'RightToLeft';
         xPosition = canvas.width;
         this.image = image;
-        this.lives = 1;
         this.type = type;
-        this.speed = 2;
+        this.speed = 1, 5;
     }
     move() {
         this.setXPos(this.getXPos() - this.speed);
@@ -31,14 +29,5 @@ export default class Spy extends ScoringItem {
             this.xPosition = ScoringItem.randomInteger(0, canvasWidth);
         }
     }
-    subtractLivesWhenHit() {
-        this.lives -= 1;
-    }
-    isDead() {
-        if (this.lives <= 0) {
-            return true;
-        }
-        return false;
-    }
 }
-//# sourceMappingURL=Spy.js.map
+//# sourceMappingURL=Coin.js.map

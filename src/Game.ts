@@ -24,6 +24,12 @@ export default class Game {
     this.gameLoop.start(new Start(this));
 
     console.log('game');
+
+    const backgroundId = document.querySelector('canvas');
+    console.log(backgroundId);
+
+    // changes the background
+    // document.body.style.backgroundImage = 'url("assets/img/background.jpeg")';
   }
 
   /**
@@ -48,4 +54,16 @@ export default class Game {
   public static randomNumber(min: number, max: number): number {
     return Math.round(Math.random() * (max - min) + min);
   }
+
+  /**
+   * function to change the background image
+   *
+   * @param pictureName name of the image in the img folder
+   * !! you need to include the filetype
+   * !! it searches from the img folder
+   */
+  public static changeBackgroundImg(pictureName: string) {
+    document.body.style.backgroundImage = `url("assets/img/${pictureName}")`
+  }
+
 }

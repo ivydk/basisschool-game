@@ -4,6 +4,7 @@ import Score from "../Score.js";
 import Level from "./Level.js";
 import QuestionPage from "./QuestionPage.js";
 import Scene from "./Scene.js";
+import Coins from "../Coins.js";
 import Start from "./Start.js";
 
 export default class GameOver extends Scene {
@@ -19,15 +20,18 @@ export default class GameOver extends Scene {
 
     private score: Score;
 
+    private coins: Coins;
+
     private currentLevel: number;
 
-    public constructor(game: Game, score: Score, currentLevel: number) {
+    public constructor(game: Game, score: Score, coins: Coins, currentLevel: number) {
         super(game);
         console.log('Game Over');
 
         this.currentLevel = currentLevel;
 
         this.score = score;
+        this.coins = coins;
         this.keyListener = new KeyListener();
     }
 
@@ -52,7 +56,7 @@ export default class GameOver extends Scene {
             if (this.answer === 0) {
                 return new Start(this.game);
             } else if (this.answer === 1) {
-                return new QuestionPage(this.game, this.score, this.currentLevel);
+                return new QuestionPage(this.game, this.score, this.coins, this.currentLevel);
             }
         }
         return null;
@@ -65,7 +69,7 @@ export default class GameOver extends Scene {
 
         this.writeTextToCanvas('Game over', this.game.canvas.width / 2, this.game.canvas.height / 2, 50, "white", "center");
         this.writeTextToCanvas('Druk op enter om terug te gaan naar het start scherm', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "white", "center");
-        this.writeTextToCanvas('Druk op V als je een exta leven wilt', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "white", "center");
+        this.writeTextToCanvas('Druk op V als je een extra leven wilt', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "white", "center");
         // this.writeTextToCanvas(`${String.fromCodePoint(129440, 129440, 129440)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "green", "center");
 
         // TODO: random question about viruses, if the answer is correct you will get a extra live

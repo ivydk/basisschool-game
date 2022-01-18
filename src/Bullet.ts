@@ -8,6 +8,8 @@ export default class Bullet extends GameItem {
 
     private xMoveTo: number;
 
+    private isHit: boolean;
+
     constructor(xPos: number, yPos: number, canvas: HTMLCanvasElement) {
         super(
             100,
@@ -20,6 +22,7 @@ export default class Bullet extends GameItem {
         this.xMoveTo = xPos;
         this.yMoveTo = yPos
         this.speed = 4;
+        this.isHit = false;
     }
 
     /**
@@ -47,5 +50,29 @@ export default class Bullet extends GameItem {
             && this.getXPos() + this.getImage().width > scoringItem.getXPos()
             && this.getYPos() < scoringItem.getYPos() + scoringItem.getImage().height
             && this.getYPos() + this.getImage().height > scoringItem.getYPos();
+    }
+
+    /**
+     *
+     * @returns wether the bullet is hit or not
+     */
+    public IsHit(): boolean {
+        return this.isHit;
+    }
+
+    /**
+     * sets the variable isHit to true when you call the function
+     */
+    public setIsHit(): void {
+        if (this.isHit === false) {
+            this.isHit = true;
+            console.log('bullet is weg');
+        }
+    }
+
+    public setSpeed(speed: number) {
+        if (this.speed > 0 && this.speed <= 15) {
+            this.speed = speed;
+        }
     }
 }

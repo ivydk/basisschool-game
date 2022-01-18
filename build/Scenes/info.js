@@ -4,7 +4,7 @@ import Score from "../Score.js";
 import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
 import Coins from "../Coins.js";
-export default class Start extends Scene {
+export default class Info extends Scene {
     isFinished;
     keyListener;
     score;
@@ -15,7 +15,7 @@ export default class Start extends Scene {
         this.score = new Score();
         this.coins = new Coins();
         this.keyListener = new KeyListener();
-        Game.changeBackgroundImg('startScherm-bg.jpeg');
+        Game.changeBackgroundImg('background.jpeg');
     }
     processInput() {
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {
@@ -34,4 +34,4 @@ export default class Start extends Scene {
         this.writeTextToCanvas('Druk op Enter om te beginnen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "black", "center");
     }
 }
-//# sourceMappingURL=Start.js.map
+//# sourceMappingURL=info.js.map

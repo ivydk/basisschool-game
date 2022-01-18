@@ -1,7 +1,7 @@
 import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Score from "../Score.js";
-import Level from "./Level.js";
+import Coins from "../Coins.js";
 import Level_1 from "./Level_1.js";
 import Level_2 from "./Level_2.js";
 import Level_3 from "./Level_3.js";
@@ -18,15 +18,19 @@ export default class QuestionPage extends Scene {
 
     private score: Score;
 
+    private coins: Coins;
+
     private currentLevel: number;
 
-    public constructor(game: Game, score: Score, currentLevel: number) {
+    public constructor(game: Game, score: Score, coins: Coins, currentLevel: number) {
         super(game);
         console.log('Question page');
 
         this.currentLevel = currentLevel;
 
         this.score = score;
+
+        this.coins = coins;
 
         this.keyListener = new KeyListener();
     }
@@ -55,13 +59,13 @@ export default class QuestionPage extends Scene {
                 // This switch determents what level you should go back to
                 // TODO: Add new cases if new levels are added
                 switch (this.currentLevel) {
-                    case 1: return new Level_1(this.game, this.score, 0);
+                    case 1: return new Level_1(this.game, this.score, this.coins, 0);
                         break;
-                    case 2: return new Level_2(this.game, this.score, 0);
+                    case 2: return new Level_2(this.game, this.score, this.coins, 0);
                         break;
-                    case 3: return new Level_3(this.game, this.score, 0);
+                    case 3: return new Level_3(this.game, this.score, this.coins, 0);
                         break;
-                    case 4: return new Level_4(this.game, this.score, 0);
+                    case 4: return new Level_4(this.game, this.score, this.coins, 0);
                 }
             } else if (this.answer === false) {
                 return new Start(this.game);

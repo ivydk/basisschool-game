@@ -4,6 +4,7 @@ export default class TrojanHorse extends ScoringItem {
     canvas;
     speed;
     isHit;
+    lives;
     constructor(type, canvas, xPosition, yPosition, image) {
         super(0, xPosition, yPosition, image);
         this.canvas = canvas;
@@ -15,6 +16,7 @@ export default class TrojanHorse extends ScoringItem {
         this.type = type;
         this.speed = 0.5;
         this.isHit = false;
+        this.lives = 3;
     }
     move() {
         this.setXPos(this.getXPos() - this.speed);
@@ -31,9 +33,19 @@ export default class TrojanHorse extends ScoringItem {
             this.xPosition = ScoringItem.randomInteger(0, canvasWidth);
         }
     }
+    subtractLivesWhenHit() {
+        this.lives -= 1;
+    }
+    isDead() {
+        if (this.lives <= 0) {
+            return true;
+        }
+        return false;
+    }
     getIsHit = () => this.isHit;
     setIsHit = (isHit) => {
         this.isHit = isHit;
     };
+    getLives = () => this.lives;
 }
 //# sourceMappingURL=TrojanHorse.js.map

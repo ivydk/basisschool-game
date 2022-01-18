@@ -3,6 +3,7 @@ export default class Bullet extends GameItem {
     speed;
     yMoveTo;
     xMoveTo;
+    isHit;
     constructor(xPos, yPos, canvas) {
         super(100, yPos, GameItem.loadNewImage('./assets/img/rocket-horizontal.png'));
         this.xPosition = 80;
@@ -10,6 +11,7 @@ export default class Bullet extends GameItem {
         this.xMoveTo = xPos;
         this.yMoveTo = yPos;
         this.speed = 4;
+        this.isHit = false;
     }
     move() {
         this.xPosition += this.speed;
@@ -25,6 +27,20 @@ export default class Bullet extends GameItem {
             && this.getXPos() + this.getImage().width > scoringItem.getXPos()
             && this.getYPos() < scoringItem.getYPos() + scoringItem.getImage().height
             && this.getYPos() + this.getImage().height > scoringItem.getYPos();
+    }
+    IsHit() {
+        return this.isHit;
+    }
+    setIsHit() {
+        if (this.isHit === false) {
+            this.isHit = true;
+            console.log('bullet is weg');
+        }
+    }
+    setSpeed(speed) {
+        if (this.speed > 0 && this.speed <= 15) {
+            this.speed = speed;
+        }
     }
 }
 //# sourceMappingURL=Bullet.js.map

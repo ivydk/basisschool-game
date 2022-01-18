@@ -10,12 +10,14 @@ export default class QuestionPage extends Scene {
     isFinished;
     keyListener;
     score;
+    coins;
     currentLevel;
-    constructor(game, score, currentLevel) {
+    constructor(game, score, coins, currentLevel) {
         super(game);
         console.log('Question page');
         this.currentLevel = currentLevel;
         this.score = score;
+        this.coins = coins;
         this.keyListener = new KeyListener();
     }
     processInput() {
@@ -37,15 +39,15 @@ export default class QuestionPage extends Scene {
             if (this.answer === true) {
                 switch (this.currentLevel) {
                     case 1:
-                        return new Level_1(this.game, this.score, 0);
+                        return new Level_1(this.game, this.score, this.coins, 0);
                         break;
                     case 2:
-                        return new Level_2(this.game, this.score, 0);
+                        return new Level_2(this.game, this.score, this.coins, 0);
                         break;
                     case 3:
-                        return new Level_3(this.game, this.score, 0);
+                        return new Level_3(this.game, this.score, this.coins, 0);
                         break;
-                    case 4: return new Level_4(this.game, this.score, 0);
+                    case 4: return new Level_4(this.game, this.score, this.coins, 0);
                 }
             }
             else if (this.answer === false) {

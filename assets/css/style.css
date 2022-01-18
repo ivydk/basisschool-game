@@ -5,8 +5,8 @@ body {
     padding: 0;
 }
 
-canvas {
-    background-image: url("../img/background.jpeg");
+body {
+    /* background-image: url("../img/background.jpeg"); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

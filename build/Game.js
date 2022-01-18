@@ -10,6 +10,8 @@ export default class Game {
         this.gameLoop = new GameLoop();
         this.gameLoop.start(new Start(this));
         console.log('game');
+        const backgroundId = document.querySelector('canvas');
+        console.log(backgroundId);
     }
     static loadNewImage(source) {
         const img = new Image();
@@ -18,6 +20,9 @@ export default class Game {
     }
     static randomNumber(min, max) {
         return Math.round(Math.random() * (max - min) + min);
+    }
+    static changeBackgroundImg(pictureName) {
+        document.body.style.backgroundImage = `url("assets/img/${pictureName}")`;
     }
 }
 //# sourceMappingURL=Game.js.map

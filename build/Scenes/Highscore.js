@@ -5,12 +5,14 @@ export default class HighScore extends Scene {
     isFinished;
     keyListener;
     score;
+    coins;
     currentLevel;
-    constructor(game, score, currentLevel) {
+    constructor(game, score, coins, currentLevel) {
         super(game);
         console.log('Game Over');
         this.currentLevel = currentLevel;
         this.score = score;
+        this.coins = coins;
         this.keyListener = new KeyListener();
     }
     processInput() {
