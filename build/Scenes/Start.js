@@ -1,9 +1,9 @@
 import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Score from "../Score.js";
-import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
-import Coins from "../Coins.js";
+import CoinPoints from "../CoinPoints.js";
+import Info from "./Info.js";
 export default class Start extends Scene {
     isFinished;
     keyListener;
@@ -13,7 +13,7 @@ export default class Start extends Scene {
         super(game);
         console.log('start');
         this.score = new Score();
-        this.coins = new Coins();
+        this.coins = new CoinPoints();
         this.keyListener = new KeyListener();
         Game.changeBackgroundImg('startScherm-bg.jpeg');
     }
@@ -24,14 +24,14 @@ export default class Start extends Scene {
     }
     update(elapsed) {
         if (this.isFinished) {
-            return new Level_1(this.game, this.score, this.coins, 3);
+            return new Info(this.game);
         }
         return null;
     }
     render() {
         const ctx = this.game.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
-        this.writeTextToCanvas('Druk op Enter om te beginnen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "black", "center");
+        this.writeTextToCanvas('Druk op Enter om door te gaan', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "black", "center");
     }
 }
 //# sourceMappingURL=Start.js.map

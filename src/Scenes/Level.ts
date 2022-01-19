@@ -12,7 +12,7 @@ import Scene from "./Scene.js";
 import TrojanHorse from "../TrojanHorse.js";
 import Spy from "../Spy.js";
 import Coin from "../Coin.js";
-import Coins from "../Coins.js";
+import CoinPoints from "../CoinPoints.js";
 
 export default class Level extends Scene {
     protected isAlive: boolean;
@@ -23,9 +23,13 @@ export default class Level extends Scene {
 
     private bullets: Bullet[];
 
+    protected character: HTMLImageElement
+
+    private toSpawn: ScoringItem[];
+
     protected score: Score;
 
-    protected coins: Coins;
+    protected coinPoints: CoinPoints;
 
     private line: Line;
 
@@ -41,7 +45,7 @@ export default class Level extends Scene {
 
     private bulletsShot: number;
 
-    public constructor(game: Game, score: Score, coins: Coins, lives: number) {
+    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
         super(game);
         console.log('Level 1')
         this.isAlive = false;
@@ -49,7 +53,8 @@ export default class Level extends Scene {
         this.scoringItems = [];
         this.bullets = [];
         this.score = score;
-        this.coins = coins;
+        this.character = character;
+        this.coinPoints = coins;
         this.line = new Line(this.game.canvas);
 
         // keeps track of the maximum bullets that you can shoot and how many you have already shot
@@ -58,7 +63,9 @@ export default class Level extends Scene {
         // starting value lives
         this.lives = lives;
 
-        this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('assets/img/player_boy.png'))
+        this.toSpawn = [];
+
+        this.player = new Player(10, this.game.canvas.height / 4, this.character)
     }
 
     /**
@@ -69,7 +76,7 @@ export default class Level extends Scene {
         this.moveItems();
 
         // Makes new viruses if the random number is equal to 1
-        if (Game.randomNumber(1, 20) === 1) {
+        if (Game.randomNumber(1, 30) === 1) {
             this.scoringItems.push(new Virus(
                 'rightToLeft',
                 this.game.canvas,
@@ -133,9 +140,9 @@ export default class Level extends Scene {
 
         this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'Green', "left");
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "white", "left",);
-        this.writeTextToCanvas(`Lives: ${this.lives}`, 25, 110, 25, "white", "left");
-        this.writeTextToCanvas(`Bullets left: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
-        this.writeTextToCanvas(`Coins: ${this.coins.getCoins()}`, 25, 160, 25, "white", "left",);
+        this.writeTextToCanvas(`Levens: ${this.lives}`, 25, 110, 25, "white", "left");
+        this.writeTextToCanvas(`Kogels over: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
+        this.writeTextToCanvas(`Munten: ${this.coinPoints.getCoins()}`, 25, 160, 25, "white", "left",);
 
         // draw everything
         this.player.draw(ctx);
@@ -206,7 +213,13 @@ export default class Level extends Scene {
                     // check if the player is over (collided with) the garbage item.
                     if (bullet.collidesWithVirus(element)) {
                         // Do not include this item.
-                        this.score.setScore(1);
+
+                        // if the element is a coin the points should not go up
+                        if (!(element instanceof Coin)) {
+                            this.score.setScore(1);
+                        } else {
+                            this.coinPoints.setCoins(1);
+                        }
 
                         // sets the isHit variable from bullet to `true`
                         bullet.setIsHit();
@@ -217,6 +230,17 @@ export default class Level extends Scene {
                             console.log(element.getLives());
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
+
+                                this.toSpawn.push(new Virus(
+                                    'rightToLeft',
+                                    this.game.canvas,
+                                    element.getYPos() + 100,
+                                    element.getXPos(),
+                                    Game.loadNewImage('assets/img/virusSmall.png'),
+                                ));
+                                this.scoringItems = this.scoringItems.concat(this.toSpawn);
+                                console.log(this.toSpawn);
+                                this.toSpawn = [];
                                 return false
                             }
                             return true;
@@ -249,6 +273,9 @@ export default class Level extends Scene {
             // check if the player is over (collided with) the garbage item.
             if (this.line.collidesWithRocket(element)) {
                 // Do not include this item.
+                if (element instanceof Coin) {
+                    console.log('coin kut')
+                }
                 if (this.lives > 0) {
                     this.lives -= 1;
                 } else {

@@ -1,24 +1,25 @@
 import Game from "../Game.js";
 import GameOver from "./GameOver.js";
 import Level from "./Level.js";
-import Level_2 from "./Level_2.js";
+import Inbetween from "./Inbetween.js";
 export default class Level_1 extends Level {
     static SCORE_TO_LEVEL_UP = 50;
-    constructor(game, score, coins, lives) {
-        super(game, score, coins, lives);
+    constructor(game, score, coins, lives, character) {
+        super(game, score, coins, lives, character);
         this.score = score;
-        this.coins = coins;
+        this.coinPoints = coins;
         this.currentLevel = 1;
-        this.maxBullets = 75;
+        this.character = character;
+        this.maxBullets = 300;
         Game.changeBackgroundImg('background_3.jpeg');
     }
     update(elapsed) {
         if (this.isAlive) {
             this.isAlive = true;
-            return new GameOver(this.game, this.score, this.coins, this.currentLevel);
+            return new GameOver(this.game, this.score, this.coinPoints, this.currentLevel, this.character);
         }
         if (this.score.getScore() >= Level_1.SCORE_TO_LEVEL_UP) {
-            return new Level_2(this.game, this.score, this.coins, this.lives + 1);
+            return new Inbetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
         }
         return null;
     }

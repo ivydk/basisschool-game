@@ -4,7 +4,7 @@ import Score from "../Score.js";
 import Level from "./Level.js";
 import QuestionPage from "./QuestionPage.js";
 import Scene from "./Scene.js";
-import Coins from "../Coins.js";
+import CoinPoints from "../CoinPoints.js";
 import Start from "./Start.js";
 
 export default class GameOver extends Scene {
@@ -20,15 +20,19 @@ export default class GameOver extends Scene {
 
     private score: Score;
 
-    private coins: Coins;
+    private coins: CoinPoints;
+
+    private character: HTMLImageElement;
 
     private currentLevel: number;
 
-    public constructor(game: Game, score: Score, coins: Coins, currentLevel: number) {
+    public constructor(game: Game, score: Score, coins: CoinPoints, currentLevel: number, character: HTMLImageElement) {
         super(game);
         console.log('Game Over');
 
         this.currentLevel = currentLevel;
+
+        this.character = character;
 
         this.score = score;
         this.coins = coins;
@@ -56,7 +60,7 @@ export default class GameOver extends Scene {
             if (this.answer === 0) {
                 return new Start(this.game);
             } else if (this.answer === 1) {
-                return new QuestionPage(this.game, this.score, this.coins, this.currentLevel);
+                return new QuestionPage(this.game, this.score, this.coins, this.currentLevel, this.character);
             }
         }
         return null;

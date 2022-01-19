@@ -1,4 +1,4 @@
-export default class Coins {
+export default class CoinPoints {
     private coins: number;
 
     /**

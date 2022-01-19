@@ -4,7 +4,8 @@ import Score from "../Score.js";
 import Level from "./Level.js";
 import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
-import Coins from "../Coins.js";
+import CoinPoints from "../CoinPoints.js";
+import Info from "./Info.js";
 
 export default class Start extends Scene {
     private isFinished: boolean;
@@ -13,13 +14,13 @@ export default class Start extends Scene {
 
     private score: Score;
 
-    private coins: Coins;
+    private coins: CoinPoints;
 
     public constructor(game: Game) {
         super(game);
         console.log('start');
         this.score = new Score();
-        this.coins = new Coins();
+        this.coins = new CoinPoints();
         this.keyListener = new KeyListener();
 
         // change the background
@@ -43,7 +44,7 @@ export default class Start extends Scene {
     public update(elapsed: number): Scene {
         if (this.isFinished) {
             // Proceed to the next screen
-            return new Level_1(this.game, this.score, this.coins, 3);
+            return new Info(this.game);
         }
         return null;
     }
@@ -57,7 +58,7 @@ export default class Start extends Scene {
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
         // this.writeTextToCanvas(`Virus vechter`, this.game.canvas.width / 2, this.game.canvas.height / 2, 50, "white", "center");
-        this.writeTextToCanvas('Druk op Enter om te beginnen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "black", "center");
+        this.writeTextToCanvas('Druk op Enter om door te gaan', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 20, "black", "center");
     }
 
 }

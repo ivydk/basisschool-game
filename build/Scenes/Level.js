@@ -14,30 +14,34 @@ export default class Level extends Scene {
     scoringItems;
     player;
     bullets;
+    character;
+    toSpawn;
     score;
-    coins;
+    coinPoints;
     line;
     lives;
     currentLevel;
     maxBullets;
     pointsToLevelUp;
     bulletsShot;
-    constructor(game, score, coins, lives) {
+    constructor(game, score, coins, lives, character) {
         super(game);
         console.log('Level 1');
         this.isAlive = false;
         this.scoringItems = [];
         this.bullets = [];
         this.score = score;
-        this.coins = coins;
+        this.character = character;
+        this.coinPoints = coins;
         this.line = new Line(this.game.canvas);
         this.bulletsShot = 0;
         this.lives = lives;
-        this.player = new Player(10, this.game.canvas.height / 4, Game.loadNewImage('assets/img/player_boy.png'));
+        this.toSpawn = [];
+        this.player = new Player(10, this.game.canvas.height / 4, this.character);
     }
     processInput() {
         this.moveItems();
-        if (Game.randomNumber(1, 20) === 1) {
+        if (Game.randomNumber(1, 30) === 1) {
             this.scoringItems.push(new Virus('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/virusSmall.png')));
         }
         else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 2) {
@@ -65,9 +69,9 @@ export default class Level extends Scene {
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
         this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'Green', "left");
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "white", "left");
-        this.writeTextToCanvas(`Lives: ${this.lives}`, 25, 110, 25, "white", "left");
-        this.writeTextToCanvas(`Bullets left: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
-        this.writeTextToCanvas(`Coins: ${this.coins.getCoins()}`, 25, 160, 25, "white", "left");
+        this.writeTextToCanvas(`Levens: ${this.lives}`, 25, 110, 25, "white", "left");
+        this.writeTextToCanvas(`Kogels over: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
+        this.writeTextToCanvas(`Munten: ${this.coinPoints.getCoins()}`, 25, 160, 25, "white", "left");
         this.player.draw(ctx);
         this.line.drawLine(ctx);
         if (this.scoringItems.length !== 0) {
@@ -110,12 +114,21 @@ export default class Level extends Scene {
             this.bullets.forEach((bullet) => {
                 this.scoringItems = this.scoringItems.filter((element) => {
                     if (bullet.collidesWithVirus(element)) {
-                        this.score.setScore(1);
+                        if (!(element instanceof Coin)) {
+                            this.score.setScore(1);
+                        }
+                        else {
+                            this.coinPoints.setCoins(1);
+                        }
                         bullet.setIsHit();
                         if (element instanceof TrojanHorse) {
                             console.log(element.getLives());
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
+                                this.toSpawn.push(new Virus('rightToLeft', this.game.canvas, element.getYPos() + 100, element.getXPos(), Game.loadNewImage('assets/img/virusSmall.png')));
+                                this.scoringItems = this.scoringItems.concat(this.toSpawn);
+                                console.log(this.toSpawn);
+                                this.toSpawn = [];
                                 return false;
                             }
                             return true;
@@ -137,6 +150,9 @@ export default class Level extends Scene {
     virusCollidesWithLine() {
         this.scoringItems = this.scoringItems.filter((element) => {
             if (this.line.collidesWithRocket(element)) {
+                if (element instanceof Coin) {
+                    console.log('coin kut');
+                }
                 if (this.lives > 0) {
                     this.lives -= 1;
                 }
