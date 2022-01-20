@@ -8,12 +8,9 @@ export default class ExplainWrongAnswer extends Scene {
     explanation;
     question;
     rightAnswer;
-    constructor(game, score, coins, currentLevel, character, explanation, question, rightAnswer) {
+    constructor(game, score, coins, currentLevel, character, question) {
         super(game);
         console.log('Explain wrong answer page');
-        this.explanation = explanation;
-        this.question = question;
-        this.rightAnswer = rightAnswer;
     }
     processInput() {
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {

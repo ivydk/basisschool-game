@@ -1,6 +1,7 @@
 import CoinPoints from "../CoinPoints";
 import Game from "../Game";
 import KeyListener from "../KeyListener";
+import Question from "../Question";
 import Score from "../Score";
 import Scene from "./Scene";
 import Start from "./Start";
@@ -24,15 +25,13 @@ export default class ExplainWrongAnswer extends Scene {
         coins: CoinPoints,
         currentLevel: number,
         character: HTMLImageElement,
-        explanation: string,
-        question: string,
-        rightAnswer: string) {
+        question: Question) {
         super(game);
         console.log('Explain wrong answer page');
 
-        this.explanation = explanation;
-        this.question = question;
-        this.rightAnswer = rightAnswer;
+        // this.explanation = explanation;
+        // this.question = question;
+        // this.rightAnswer = rightAnswer;
     }
 
     public processInput(): void {

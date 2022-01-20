@@ -47,7 +47,7 @@ export default class Level extends Scene {
         else if (Game.randomNumber(1, 100) === 1 && this.currentLevel >= 2) {
             this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/mworm.png')));
         }
-        else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
+        else if (Game.randomNumber(1, 400) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/TrojanHorse.png')));
         }
         else if (Game.randomNumber(1, 300) === 1 && this.currentLevel >= 4) {
@@ -125,7 +125,9 @@ export default class Level extends Scene {
                             console.log(element.getLives());
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
-                                this.toSpawn.push(new Virus('rightToLeft', this.game.canvas, element.getYPos() + 100, element.getXPos(), Game.loadNewImage('assets/img/virusSmall.png')));
+                                this.toSpawn.push(new Virus('rightToLeft', this.game.canvas, element.getXPos(), element.getYPos() + 50, Game.loadNewImage('assets/img/virusSmall.png')));
+                                this.toSpawn.push(new Virus('rightToLeft', this.game.canvas, element.getXPos(), element.getYPos() - 50, Game.loadNewImage('assets/img/virusSmall.png')));
+                                this.toSpawn.push(new Virus('rightToLeft', this.game.canvas, element.getXPos(), element.getYPos(), Game.loadNewImage('assets/img/virusSmall.png')));
                                 return false;
                             }
                             return true;
@@ -142,7 +144,6 @@ export default class Level extends Scene {
                     return true;
                 });
                 this.scoringItems = this.scoringItems.concat(this.toSpawn);
-                console.log(this.toSpawn);
                 this.toSpawn = [];
             });
         }

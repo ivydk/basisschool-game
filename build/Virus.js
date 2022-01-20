@@ -6,6 +6,7 @@ export default class Virus extends ScoringItem {
     constructor(type, canvas, xPosition, yPosition, image) {
         super(0, xPosition, yPosition, image);
         this.canvas = canvas;
+        console.log('deadly virus');
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.type = 'RightToLeft';

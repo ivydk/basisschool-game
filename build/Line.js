@@ -5,10 +5,7 @@ export default class Line {
     constructor(canvas) {
         this.canvas = canvas;
         this.xPosition = 350;
-        if (this.color != 'red') {
-            this.color = 'white';
-        }
-        ;
+        this.color = 'white';
     }
     drawLine(ctx) {
         ctx.strokeStyle = this.color;
@@ -25,5 +22,9 @@ export default class Line {
         return false;
     }
     ;
+    setColor = (input) => {
+        this.color = input;
+    };
+    getColor = () => this.color;
 }
 //# sourceMappingURL=Line.js.map

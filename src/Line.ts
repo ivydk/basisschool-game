@@ -11,9 +11,7 @@ export default class Line {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.xPosition = 350;
-    if (this.color != 'red') {
-      this.color = 'white';
-    };
+    this.color = 'white';
   }
 
   public drawLine(ctx: CanvasRenderingContext2D): void {
@@ -39,4 +37,10 @@ export default class Line {
     }
     return false
   };
+
+  public setColor = (input: string): void => {
+    this.color = input;
+  };
+
+  public getColor = (): string => this.color;
 }

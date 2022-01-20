@@ -76,7 +76,7 @@ export default class Inbetween extends Scene {
             }
             if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
                 console.log('3');
-                this.line.color = 'red';
+                this.line.setColor('red');
             }
         }
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {
