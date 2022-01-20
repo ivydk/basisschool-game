@@ -34,7 +34,7 @@ export default class QuestionPage extends Scene {
             new Question('Wat maakt een Trojan Horse virus zo gevaarlijk?', 'Het virus zit verstopt in een programma of virus.', 'Het virus kan niet worden weggehaald.', 'Je kan je computer er niet tegen beschermen.'),
             new Question('Wat is een virusscanner?', 'Een virusscanner zoekt naar virussen en andere malware.', 'Een virusscanner waarschuwt je voor mensen die je benaderen in een spel.', 'Een virusscanner is een vorm van malware.'),
             new Question('Wat is een computer virus?', 'Een stukje code dat je computersysteem aanpast of kapot maakt.', 'Een soort ziekte van je computer waardoor je zelf ziek kan worden.', 'Een bekend programma dat je computer beschermd.'),
-            new Question('Wat is spyware?', 'Een programma dat informatie ', 'false 4', 'kut 4'),
+            new Question('Wat is spyware?', 'Een programma dat gegevens van je computer achterhaald en doorstuurd naar iemand anders om geld te verdienen.', 'Een programma dat met je meekijkt op je computer.', 'een spion van de overheid.'),
         ];
         this.currentQuestion = this.randomQuestion(this.questions);
         this.correctAnswer = this.currentQuestion.getRightAnswer();

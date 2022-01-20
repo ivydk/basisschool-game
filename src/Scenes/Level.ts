@@ -76,7 +76,7 @@ export default class Level extends Scene {
         this.moveItems();
 
         // Makes new viruses if the random number is equal to 1
-        if (Game.randomNumber(1, 30) === 1) {
+        if (Game.randomNumber(1, 40) === 1) {
             this.scoringItems.push(new Virus(
                 'rightToLeft',
                 this.game.canvas,
@@ -93,7 +93,7 @@ export default class Level extends Scene {
                 Game.randomNumber(0, this.game.canvas.height - 30),
                 Game.loadNewImage('assets/img/mworm.png'),
             ));
-        } else if (Game.randomNumber(1, 100) === 1 && this.currentLevel > 0) {
+        } else if (Game.randomNumber(1, 200) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new TrojanHorse(
                 'rightToLeft',
                 this.game.canvas,
@@ -109,7 +109,7 @@ export default class Level extends Scene {
                 GameItem.randomInteger(0, this.game.canvas.height - 30),
                 GameItem.loadNewImage('assets/img/spy.png'),
             ));
-        } else if (Game.randomNumber(1, 100) === 1 && this.currentLevel > 0) {
+        } else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new Coin(
                 'rightToLeft',
                 this.game.canvas,
@@ -275,13 +275,15 @@ export default class Level extends Scene {
                 // Do not include this item.
                 if (element instanceof Coin) {
                     console.log('coin kut')
-                }
-                if (this.lives > 0) {
-                    this.lives -= 1;
+                    return false;
                 } else {
-                    this.isAlive = true;
+                    if (this.lives > 0) {
+                        this.lives -= 1;
+                    } else {
+                        this.isAlive = true;
+                    }
+                    return false;
                 }
-                return false;
             }
             return true;
         });

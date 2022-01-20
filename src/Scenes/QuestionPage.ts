@@ -72,7 +72,10 @@ export default class QuestionPage extends Scene {
                 'Een stukje code dat je computersysteem aanpast of kapot maakt.',
                 'Een soort ziekte van je computer waardoor je zelf ziek kan worden.',
                 'Een bekend programma dat je computer beschermd.'),
-            new Question('Wat is spyware?', 'Een programma dat informatie ', 'false 4', 'kut 4'),
+            new Question('Wat is spyware?',
+                'Een programma dat gegevens van je computer achterhaald en doorstuurd naar iemand anders om geld te verdienen.',
+                'Een programma dat met je meekijkt op je computer.',
+                'een spion van de overheid.'),
         ];
 
         this.currentQuestion = this.randomQuestion(this.questions);
