@@ -28,6 +28,10 @@ export default class Inbetween extends Scene {
 
     private lives: number;
 
+    private screens: number;
+
+    private extraBullets: number;
+
     public constructor(game: Game, score: Score, coins: CoinPoints, currentLevel: number, character: HTMLImageElement, lives: number) {
         super(game);
         console.log('Question page');
@@ -40,23 +44,36 @@ export default class Inbetween extends Scene {
 
         this.coins = coins;
 
-        this.lives = lives
+        this.lives = lives;
+
+        this.screens = 0;
 
         this.keyListener = new KeyListener();
+
+        this.extraBullets = 0;
     }
 
-    // TODO: het correcte antwoord kiezen en dan pas door ipv altijd bij a
+    // TODO: how many coins will it cost
     public processInput(): void {
-        if (this.lives + 1 <= this.lives) {
-            if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
+        this.screens += 1;
+
+        // Each 60 frames it checks wether the key is down
+        if (this.screens % 60 === 0) {
+            // When you press 1, you can buy a life for 3 coins
+            if (this.keyListener.isKeyDown(KeyListener.KEY_1) && this.coins.getCoins() >= 3) {
+                console.log('1');
                 this.lives += 1;
+                this.coins.setCoins(-3);
             }
-        }
-        if (this.keyListener.isKeyDown(KeyListener.KEY_2)) {
-            this.isFinished = true;
-        }
-        if (this.keyListener.isKeyDown(KeyListener.KEY_1)) {
-            this.isFinished = true;
+            // When you press 2, you can buy 10 bullets for 1 coins
+            if (this.keyListener.isKeyDown(KeyListener.KEY_2) && this.coins.getCoins() >= 1) {
+                console.log('2');
+                this.extraBullets += 10
+                this.coins.setCoins(-1);
+            }
+            if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
+                console.log('3');
+            }
         }
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {
             this.isFinished = true;
@@ -92,6 +109,10 @@ export default class Inbetween extends Scene {
         const ctx = this.game.canvas.getContext('2d');
         // Clear the screen
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
+
+        this.writeTextToCanvas(`Coins: ${this.coins.getCoins()}`, this.game.canvas.width / 2, 300, 18, "white", "center");
+        this.writeTextToCanvas(`Levens: ${this.lives}`, this.game.canvas.width / 2, 340, 18, "white", "center");
+        this.writeTextToCanvas(`Extra kogels: ${this.extraBullets}`, this.game.canvas.width / 2, 380, 18, "white", "center");
 
         this.writeTextToCanvas('Druk op `enter` om veder te gaan :-)', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 85, 18, "white", "center");
         // this.writeTextToCanvas(`${String.fromCodePoint(129440, 129440, 129440)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "green", "center");

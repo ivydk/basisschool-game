@@ -11,7 +11,8 @@ export default class CoinPoints {
     /**
      * you can set de coins
      *
-     * @param coins number of point you have at the moment
+     * @param coins number of coins you want to add
+     * formula: coins = coins + `your number`
      */
     public setCoins = (coins: number): void => {
         this.coins += coins;

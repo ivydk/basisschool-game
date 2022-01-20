@@ -14,6 +14,8 @@ export default class Inbetween extends Scene {
     currentLevel;
     character;
     lives;
+    screens;
+    extraBullets;
     constructor(game, score, coins, currentLevel, character, lives) {
         super(game);
         console.log('Question page');
@@ -22,19 +24,26 @@ export default class Inbetween extends Scene {
         this.score = score;
         this.coins = coins;
         this.lives = lives;
+        this.screens = 0;
         this.keyListener = new KeyListener();
+        this.extraBullets = 0;
     }
     processInput() {
-        if (this.lives + 1 <= this.lives) {
-            if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
+        this.screens += 1;
+        if (this.screens % 60 === 0) {
+            if (this.keyListener.isKeyDown(KeyListener.KEY_1) && this.coins.getCoins() >= 3) {
+                console.log('1');
                 this.lives += 1;
+                this.coins.setCoins(-3);
             }
-        }
-        if (this.keyListener.isKeyDown(KeyListener.KEY_2)) {
-            this.isFinished = true;
-        }
-        if (this.keyListener.isKeyDown(KeyListener.KEY_1)) {
-            this.isFinished = true;
+            if (this.keyListener.isKeyDown(KeyListener.KEY_2) && this.coins.getCoins() >= 1) {
+                console.log('2');
+                this.extraBullets += 10;
+                this.coins.setCoins(-1);
+            }
+            if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
+                console.log('3');
+            }
         }
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {
             this.isFinished = true;
@@ -65,6 +74,9 @@ export default class Inbetween extends Scene {
     render() {
         const ctx = this.game.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
+        this.writeTextToCanvas(`Coins: ${this.coins.getCoins()}`, this.game.canvas.width / 2, 300, 18, "white", "center");
+        this.writeTextToCanvas(`Levens: ${this.lives}`, this.game.canvas.width / 2, 340, 18, "white", "center");
+        this.writeTextToCanvas(`Extra kogels: ${this.extraBullets}`, this.game.canvas.width / 2, 380, 18, "white", "center");
         this.writeTextToCanvas('Druk op `enter` om veder te gaan :-)', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 85, 18, "white", "center");
     }
 }

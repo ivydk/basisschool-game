@@ -20,6 +20,8 @@ export default class QuestionPage extends Scene {
     answerB;
     answerC;
     character;
+    correctIndex;
+    correctKey;
     constructor(game, score, coins, currentLevel, character) {
         super(game);
         console.log('Question page');
@@ -31,22 +33,34 @@ export default class QuestionPage extends Scene {
         this.questions = [
             new Question('Wat maakt een Trojan Horse virus zo gevaarlijk?', 'Het virus zit verstopt in een programma of virus.', 'Het virus kan niet worden weggehaald.', 'Je kan je computer er niet tegen beschermen.'),
             new Question('Wat is een virusscanner?', 'Een virusscanner zoekt naar virussen en andere malware.', 'Een virusscanner waarschuwt je voor mensen die je benaderen in een spel.', 'Een virusscanner is een vorm van malware.'),
-            new Question('Wat is een computer virus?', 'Een stukje code dat je computersysteem aanpast of kapot maakt.', '', 'kut 3'),
-            new Question('Wat is? 4', 'right 4', 'false 4', 'kut 4'),
+            new Question('Wat is een computer virus?', 'Een stukje code dat je computersysteem aanpast of kapot maakt.', 'Een soort ziekte van je computer waardoor je zelf ziek kan worden.', 'Een bekend programma dat je computer beschermd.'),
+            new Question('Wat is spyware?', 'Een programma dat informatie ', 'false 4', 'kut 4'),
         ];
         this.currentQuestion = this.randomQuestion(this.questions);
         this.correctAnswer = this.currentQuestion.getRightAnswer();
+        this.correctIndex = this.currentQuestion.getAnswerArray().indexOf(this.correctAnswer);
+        console.log(this.correctIndex);
+        switch (this.correctIndex) {
+            case 0:
+                this.correctKey = KeyListener.KEY_A;
+                break;
+            case 1:
+                this.correctKey = KeyListener.KEY_B;
+                break;
+            case 2:
+                this.correctKey = KeyListener.KEY_C;
+                break;
+            default:
+                null;
+                break;
+        }
     }
     processInput() {
-        if (this.keyListener.isKeyDown(KeyListener.KEY_A)) {
+        if (this.keyListener.isKeyDown(this.correctKey)) {
             this.isFinished = true;
             this.answer = true;
         }
-        else if (this.keyListener.isKeyDown(KeyListener.KEY_B)) {
-            this.isFinished = true;
-            this.answer = false;
-        }
-        else if (this.keyListener.isKeyDown(KeyListener.KEY_C)) {
+        else if (this.keyListener.isKeyDown(KeyListener.KEY_A || KeyListener.KEY_B || KeyListener.KEY_C)) {
             this.isFinished = true;
             this.answer = false;
         }

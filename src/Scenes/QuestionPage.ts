@@ -37,6 +37,10 @@ export default class QuestionPage extends Scene {
 
     private character: HTMLImageElement;
 
+    private correctIndex: number;
+
+    private correctKey: number;
+
     public constructor(game: Game, score: Score, coins: CoinPoints, currentLevel: number, character: HTMLImageElement) {
         super(game);
         console.log('Question page');
@@ -54,26 +58,52 @@ export default class QuestionPage extends Scene {
         // TODO: make a random question about the virus
         // TODO: Haal kut weg!!
         this.questions = [
-            new Question('Wat maakt een Trojan Horse virus zo gevaarlijk?', 'Het virus zit verstopt in een programma of virus.', 'Het virus kan niet worden weggehaald.', 'Je kan je computer er niet tegen beschermen.'),
-            new Question('Wat is een virusscanner?', 'Een virusscanner zoekt naar virussen en andere malware.', 'Een virusscanner waarschuwt je voor mensen die je benaderen in een spel.', 'Een virusscanner is een vorm van malware.'),
-            new Question('Wat is een computer virus?', 'Een stukje code dat je computersysteem aanpast of kapot maakt.', '', 'kut 3'),
-            new Question('Wat is? 4', 'right 4', 'false 4', 'kut 4'),
+            new Question(
+                'Wat maakt een Trojan Horse virus zo gevaarlijk?',
+                'Het virus zit verstopt in een programma of virus.',
+                'Het virus kan niet worden weggehaald.',
+                'Je kan je computer er niet tegen beschermen.'),
+            new Question(
+                'Wat is een virusscanner?',
+                'Een virusscanner zoekt naar virussen en andere malware.',
+                'Een virusscanner waarschuwt je voor mensen die je benaderen in een spel.',
+                'Een virusscanner is een vorm van malware.'),
+            new Question('Wat is een computer virus?',
+                'Een stukje code dat je computersysteem aanpast of kapot maakt.',
+                'Een soort ziekte van je computer waardoor je zelf ziek kan worden.',
+                'Een bekend programma dat je computer beschermd.'),
+            new Question('Wat is spyware?', 'Een programma dat informatie ', 'false 4', 'kut 4'),
         ];
 
         this.currentQuestion = this.randomQuestion(this.questions);
 
         this.correctAnswer = this.currentQuestion.getRightAnswer();
+
+        this.correctIndex = this.currentQuestion.getAnswerArray().indexOf(this.correctAnswer);
+
+        console.log(this.correctIndex);
+
+        switch (this.correctIndex) {
+            case 0: this.correctKey = KeyListener.KEY_A;
+                break;
+            case 1: this.correctKey = KeyListener.KEY_B;
+                break;
+            case 2: this.correctKey = KeyListener.KEY_C;
+                break;
+            default: null
+                break;
+        }
     }
 
     // TODO: het correcte antwoord kiezen en dan pas door ipv altijd bij a
     public processInput(): void {
-        if (this.keyListener.isKeyDown(KeyListener.KEY_A)) {
+        // If you choose the right answer you go back to the game
+        if (this.keyListener.isKeyDown(this.correctKey)) {
             this.isFinished = true;
             this.answer = true;
-        } else if (this.keyListener.isKeyDown(KeyListener.KEY_B)) {
-            this.isFinished = true;
-            this.answer = false;
-        } else if (this.keyListener.isKeyDown(KeyListener.KEY_C)) {
+
+            // if you choose a different key you go to the answer screen
+        } else if (this.keyListener.isKeyDown(KeyListener.KEY_A || KeyListener.KEY_B || KeyListener.KEY_C)) {
             this.isFinished = true;
             this.answer = false;
         }
@@ -88,7 +118,7 @@ export default class QuestionPage extends Scene {
             // Proceed to the next screen
             if (this.answer === true) {
                 // This switch determents what level you should go back to
-                // TODO: Add new cases if new levels are added
+                // Lives will go back to 0 so you get one more change
                 switch (this.currentLevel) {
                     case 1: return new Level_1(this.game, this.score, this.coins, 0, this.character);
                         break;
@@ -99,6 +129,7 @@ export default class QuestionPage extends Scene {
                     case 4: return new Level_4(this.game, this.score, this.coins, 0, this.character);
                 }
             } else if (this.answer === false) {
+                // TODO: return to the info page
                 return new Start(this.game);
             }
         }
