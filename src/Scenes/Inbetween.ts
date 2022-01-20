@@ -10,6 +10,7 @@ import Scene from "./Scene.js";
 import Start from "./Start.js";
 import Question from "../Question.js";
 import HighScore from "./Highscore.js";
+import Line from "../Line.js";
 
 export default class Inbetween extends Scene {
     private answer: boolean;
@@ -19,6 +20,8 @@ export default class Inbetween extends Scene {
     private keyListener: KeyListener;
 
     private score: Score;
+
+    private line: Line;
 
     private coins: CoinPoints;
 
@@ -73,6 +76,7 @@ export default class Inbetween extends Scene {
             }
             if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
                 console.log('3');
+                this.line.color = 'red';
             }
         }
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {

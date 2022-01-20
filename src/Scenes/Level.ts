@@ -93,7 +93,7 @@ export default class Level extends Scene {
                 Game.randomNumber(0, this.game.canvas.height - 30),
                 Game.loadNewImage('assets/img/mworm.png'),
             ));
-        } else if (Game.randomNumber(1, 200) === 1 && this.currentLevel > 0) {
+        } else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new TrojanHorse(
                 'rightToLeft',
                 this.game.canvas,
@@ -274,7 +274,6 @@ export default class Level extends Scene {
             if (this.line.collidesWithRocket(element)) {
                 // Do not include this item.
                 if (element instanceof Coin) {
-                    console.log('coin kut')
                     return false;
                 } else {
                     if (this.lives > 0) {

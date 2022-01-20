@@ -1,12 +1,17 @@
 export default class Line {
     canvas;
     xPosition;
+    color;
     constructor(canvas) {
         this.canvas = canvas;
         this.xPosition = 350;
+        if (this.color != 'red') {
+            this.color = 'white';
+        }
+        ;
     }
     drawLine(ctx) {
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = this.color;
         ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.moveTo(this.xPosition, 0);

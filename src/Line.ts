@@ -6,14 +6,19 @@ export default class Line {
 
   private xPosition: number;
 
+  public color: string;
+
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.xPosition = 350;
+    if (this.color != 'red') {
+      this.color = 'white';
+    };
   }
 
   public drawLine(ctx: CanvasRenderingContext2D): void {
     // set line stroke and line width
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = this.color;
     ctx.lineWidth = 5;
 
     // draw a red line
