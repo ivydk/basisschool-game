@@ -126,9 +126,6 @@ export default class Level extends Scene {
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
                                 this.toSpawn.push(new Virus('rightToLeft', this.game.canvas, element.getYPos() + 100, element.getXPos(), Game.loadNewImage('assets/img/virusSmall.png')));
-                                this.scoringItems = this.scoringItems.concat(this.toSpawn);
-                                console.log(this.toSpawn);
-                                this.toSpawn = [];
                                 return false;
                             }
                             return true;
@@ -144,6 +141,9 @@ export default class Level extends Scene {
                     }
                     return true;
                 });
+                this.scoringItems = this.scoringItems.concat(this.toSpawn);
+                console.log(this.toSpawn);
+                this.toSpawn = [];
             });
         }
     }

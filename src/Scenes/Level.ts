@@ -238,9 +238,6 @@ export default class Level extends Scene {
                                     element.getXPos(),
                                     Game.loadNewImage('assets/img/virusSmall.png'),
                                 ));
-                                this.scoringItems = this.scoringItems.concat(this.toSpawn);
-                                console.log(this.toSpawn);
-                                this.toSpawn = [];
                                 return false
                             }
                             return true;
@@ -259,7 +256,9 @@ export default class Level extends Scene {
                     }
                     return true;
                 });
-
+                this.scoringItems = this.scoringItems.concat(this.toSpawn);
+                console.log(this.toSpawn);
+                this.toSpawn = [];
             });
         }
     }
