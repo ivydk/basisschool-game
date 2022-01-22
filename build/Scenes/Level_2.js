@@ -4,12 +4,12 @@ import Level from "./Level.js";
 import Level_1 from "./Level_1.js";
 import Level_3 from "./Level_3.js";
 export default class Level_2 extends Level {
-    static SCORE_NEEDED = 100;
+    static SCORE_NEEDED = 150;
     constructor(game, score, coins, lives, character) {
         super(game, score, coins, lives, character);
         this.currentLevel = 2;
         this.pointsToLevelUp = Level_1.SCORE_TO_LEVEL_UP + Level_2.SCORE_NEEDED;
-        this.maxBullets = Level_2.SCORE_NEEDED * 2;
+        this.maxBullets = 200;
         this.character = character;
         Game.changeBackgroundImg('background_4.jpeg');
     }

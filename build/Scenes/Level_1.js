@@ -3,7 +3,7 @@ import GameOver from "./GameOver.js";
 import Level from "./Level.js";
 import Inbetween from "./Inbetween.js";
 export default class Level_1 extends Level {
-    static SCORE_TO_LEVEL_UP = 50;
+    static SCORE_TO_LEVEL_UP = 10;
     constructor(game, score, coins, lives, character) {
         super(game, score, coins, lives, character);
         this.score = score;

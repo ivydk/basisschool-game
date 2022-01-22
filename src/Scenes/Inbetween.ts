@@ -35,6 +35,8 @@ export default class Inbetween extends Scene {
 
     private extraBullets: number;
 
+    private levelUpImage: HTMLImageElement;
+
     public constructor(game: Game, score: Score, coins: CoinPoints, currentLevel: number, character: HTMLImageElement, lives: number) {
         super(game);
         console.log('Question page');
@@ -55,6 +57,8 @@ export default class Inbetween extends Scene {
         this.keyListener = new KeyListener();
 
         this.extraBullets = 0;
+
+        this.levelUpImage = Game.loadNewImage('assets/img/levelUp2.png');
     }
 
     // TODO: how many coins will it cost
@@ -64,20 +68,16 @@ export default class Inbetween extends Scene {
         // Each 60 frames it checks wether the key is down
         if (this.screens % 60 === 0) {
             // When you press 1, you can buy a life for 3 coins
-            if (this.keyListener.isKeyDown(KeyListener.KEY_1) && this.coins.getCoins() >= 3) {
+            if ((this.keyListener.isKeyDown(KeyListener.KEY_1) || this.keyListener.isKeyDown(97)) && this.coins.getCoins() >= 3) {
                 console.log('1');
                 this.lives += 1;
                 this.coins.setCoins(-3);
             }
             // When you press 2, you can buy 10 bullets for 1 coins
-            if (this.keyListener.isKeyDown(KeyListener.KEY_2) && this.coins.getCoins() >= 1) {
+            if ((this.keyListener.isKeyDown(KeyListener.KEY_2) || this.keyListener.isKeyDown(98)) && this.coins.getCoins() >= 1) {
                 console.log('2');
                 this.extraBullets += 10
                 this.coins.setCoins(-1);
-            }
-            if (this.keyListener.isKeyDown(KeyListener.KEY_3)) {
-                console.log('3');
-                this.line.setColor('red');
             }
         }
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {
@@ -115,11 +115,14 @@ export default class Inbetween extends Scene {
         // Clear the screen
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
-        this.writeTextToCanvas(`Coins: ${this.coins.getCoins()}`, this.game.canvas.width / 2, 300, 18, "white", "center");
-        this.writeTextToCanvas(`Levens: ${this.lives}`, this.game.canvas.width / 2, 340, 18, "white", "center");
-        this.writeTextToCanvas(`Extra kogels: ${this.extraBullets}`, this.game.canvas.width / 2, 380, 18, "white", "center");
+        ctx.drawImage(this.levelUpImage, (this.game.canvas.width / 2) - (this.levelUpImage.width / 2), 50);
 
-        this.writeTextToCanvas('Druk op `enter` om veder te gaan :-)', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 85, 18, "white", "center");
-        // this.writeTextToCanvas(`${String.fromCodePoint(129440, 129440, 129440)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "green", "center");
+        this.writeTextToCanvas(`Munten: ${this.coins.getCoins()}${String.fromCodePoint(129689)}`, this.game.canvas.width / 2, 150 + this.levelUpImage.height, 30, "black", "center");
+
+        this.writeTextToCanvas(`-3${String.fromCodePoint(129689)}: druk 1 voor 1 extra leven`, this.game.canvas.width / 2, 225 + this.levelUpImage.height, 30, "black", "center");
+
+        this.writeTextToCanvas(`-1${String.fromCodePoint(129689)}: druk 2 voor 10 extra kogels`, this.game.canvas.width / 2, 275 + this.levelUpImage.height, 30, "black", "center");
+
+        this.writeTextToCanvas(`Druk om enter om door te gaan naar level ${this.currentLevel + 1}`, this.game.canvas.width / 2, 350 + this.levelUpImage.height, 30, "black", "center");
     }
 }

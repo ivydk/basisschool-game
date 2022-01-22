@@ -11,7 +11,8 @@ import Question from "../Question.js";
 import Inbetween from "./Inbetween.js";
 
 export default class Level_1 extends Level {
-    public static readonly SCORE_TO_LEVEL_UP = 50
+    // TODO: switch back to 50
+    public static readonly SCORE_TO_LEVEL_UP = 10;
 
     public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
         super(game, score, coins, lives, character)

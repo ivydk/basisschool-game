@@ -8,18 +8,15 @@ import Level_3 from "./Level_3.js";
 import Scene from "./Scene.js";
 
 export default class Level_2 extends Level {
-    // TODO: make a SCORE_NEEDED at every level
-    public static readonly SCORE_NEEDED = 100
+    public static readonly SCORE_NEEDED = 150
 
     public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
         super(game, score, coins, lives, character);
         this.currentLevel = 2;
 
-        // TODO: use this sum at every level, previous total + points needed in current level
         this.pointsToLevelUp = Level_1.SCORE_TO_LEVEL_UP + Level_2.SCORE_NEEDED;
 
-        // TODO: how many bullets do you get every level
-        this.maxBullets = Level_2.SCORE_NEEDED * 2;
+        this.maxBullets = 200;
         this.character = character;
 
         Game.changeBackgroundImg('background_4.jpeg');
