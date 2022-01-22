@@ -1,5 +1,5 @@
 import GameOver from "./GameOver.js";
-import HighScore from "./Highscore.js";
+import HighScore from "./HighScore.js";
 import Level from "./Level.js";
 import Level_1 from "./Level_1.js";
 import Level_2 from "./Level_2.js";

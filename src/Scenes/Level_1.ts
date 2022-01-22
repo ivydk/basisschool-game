@@ -8,7 +8,7 @@ import Scene from "./Scene.js";
 import Level from "./Level.js";
 import Level_2 from "./Level_2.js";
 import Question from "../Question.js";
-import Inbetween from "./Inbetween.js";
+import InBetween from "./InBetween.js";
 
 export default class Level_1 extends Level {
     // TODO: switch back to 50
@@ -40,7 +40,7 @@ export default class Level_1 extends Level {
             // Proceed to the next screen
             // TODO: fix the lives
             // return new Level_2(this.game, this.score, this.coinPoints, this.lives + 1, this.character);
-            return new Inbetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
+            return new InBetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
         }
         return null;
     }

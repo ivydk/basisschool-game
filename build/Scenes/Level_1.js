@@ -1,7 +1,7 @@
 import Game from "../Game.js";
 import GameOver from "./GameOver.js";
 import Level from "./Level.js";
-import Inbetween from "./Inbetween.js";
+import InBetween from "./InBetween.js";
 export default class Level_1 extends Level {
     static SCORE_TO_LEVEL_UP = 10;
     constructor(game, score, coins, lives, character) {
@@ -19,7 +19,7 @@ export default class Level_1 extends Level {
             return new GameOver(this.game, this.score, this.coinPoints, this.currentLevel, this.character);
         }
         if (this.score.getScore() >= Level_1.SCORE_TO_LEVEL_UP) {
-            return new Inbetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
+            return new InBetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
         }
         return null;
     }

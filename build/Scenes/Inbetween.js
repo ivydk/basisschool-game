@@ -5,8 +5,8 @@ import Level_2 from "./Level_2.js";
 import Level_3 from "./Level_3.js";
 import Level_4 from "./Level_4.js";
 import Scene from "./Scene.js";
-import HighScore from "./Highscore.js";
-export default class Inbetween extends Scene {
+import HighScore from "./HighScore.js";
+export default class InBetween extends Scene {
     answer;
     isFinished;
     keyListener;
@@ -83,4 +83,4 @@ export default class Inbetween extends Scene {
         this.writeTextToCanvas(`Druk om enter om door te gaan naar level ${this.currentLevel + 1}`, this.game.canvas.width / 2, 350 + this.levelUpImage.height, 30, "black", "center");
     }
 }
-//# sourceMappingURL=Inbetween.js.map
+//# sourceMappingURL=InBetween.js.map

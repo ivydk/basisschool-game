@@ -17,6 +17,12 @@ export default class Info extends Scene {
 
     private character: HTMLImageElement;
 
+    private boy: HTMLImageElement;
+
+    private girl: HTMLImageElement;
+
+    private virusVechterLogo: HTMLImageElement;
+
     public constructor(game: Game) {
         super(game);
         console.log('start');
@@ -24,8 +30,12 @@ export default class Info extends Scene {
         this.coinPoints = new CoinPoints();
         this.keyListener = new KeyListener();
 
-        // change the background
-        // Game.changeBackgroundImg('background_4.jpeg');
+        // TODO: change the background
+        Game.changeBackgroundImg('brickWall.jpg');
+
+        this.boy = Game.loadNewImage('assets/img/player_boy.png');
+        this.girl = Game.loadNewImage('assets/img/player_girl.png');
+        this.virusVechterLogo = Game.loadNewImage('assets/img/virusVechterLogo.png')
 
     }
 
@@ -34,11 +44,11 @@ export default class Info extends Scene {
      */
     public processInput(): void {
         if (this.keyListener.isKeyDown(KeyListener.KEY_M)) {
-            this.character = Game.loadNewImage('assets/img/player_girl.png');
+            this.character = this.girl;
             this.isFinished = true;
         }
         if (this.keyListener.isKeyDown(KeyListener.KEY_J)) {
-            this.character = Game.loadNewImage('assets/img/player_boy.png')
+            this.character = this.boy;
             this.isFinished = true;
         }
     }
@@ -50,8 +60,7 @@ export default class Info extends Scene {
     public update(elapsed: number): Scene {
         if (this.isFinished) {
             // Proceed to the next screen
-            // TODO: verander levens naar 3
-            return new Level_1(this.game, this.score, this.coinPoints, 1000, this.character);
+            return new Level_1(this.game, this.score, this.coinPoints, 3, this.character);
         }
         return null;
     }
@@ -64,10 +73,22 @@ export default class Info extends Scene {
         // Clear the screen
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
+        // The virus vechter logo
+        ctx.drawImage(this.virusVechterLogo, (this.game.canvas.width / 2) - (this.virusVechterLogo.width / 2), 50);
+
+        // Boy image + text
+        // this.writeTextToCanvas('Druk op J', (this.game.canvas.width / 4) - (100 / 4), this.game.canvas.height - 220, 30, "black", "center");
+        ctx.drawImage(this.boy, (this.game.canvas.width / 2.5) - (100 / 2), this.game.canvas.height - 200, 100, 141.13);
+
+        // Girl image + text
+        // this.writeTextToCanvas('Druk op M', this.game.canvas.width - ((this.game.canvas.width / 4) + (88.63 / 4)), this.game.canvas.height - 220, 30, "black", "center");
+        ctx.drawImage(this.girl, this.game.canvas.width - (this.game.canvas.width / 2.5) - (88.63 / 2), this.game.canvas.height - 200, 88.63, 141.13);
+
         // this.writeTextToCanvas(`Virus vechter`, this.game.canvas.width / 2, this.game.canvas.height / 2, 50, "white", "center");
-        this.writeTextToCanvas('Jij bent een jongen/meisje en jij moet samen met', this.game.canvas.width / 2, (this.game.canvas.height / 2) - 30, 30, "white", "center");
+        this.writeTextToCanvas('Jij bent een jongen/meisje en jij moet samen met', this.game.canvas.width / 2, (this.game.canvas.height / 2) - 30, 30, "black", "center");
         this.writeTextToCanvas(' je laptop tegen de computer virussen', this.game.canvas.width / 2, (this.game.canvas.height / 2), 30, "white", "center");
-        this.writeTextToCanvas('vechten, klik op de virussen om ze weg te halen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 30, "white", "center");
-        this.writeTextToCanvas('Druk op J voor een jongen en M voor een meisje', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 80, 30, "white", "center");
+        // TODO: is schieten te boos?
+        this.writeTextToCanvas('vechten, schiet op de virussen om ze weg te halen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 30, "black", "center");
+        this.writeTextToCanvas('Druk op J voor een jongen en M voor een meisje', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 80, 30, "black", "center");
     }
 }
