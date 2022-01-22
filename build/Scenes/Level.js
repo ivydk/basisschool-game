@@ -48,10 +48,10 @@ export default class Level extends Scene {
             this.scoringItems.push(new Worm('rightToLeft', this.game.canvas, this.game.canvas.width, Game.randomNumber(0, this.game.canvas.height - 30), Game.loadNewImage('assets/img/mworm.png')));
         }
         else if (Game.randomNumber(1, 400) === 1 && this.currentLevel > 0) {
-            this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/TrojanHorse.png')));
+            this.scoringItems.push(new TrojanHorse('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 75), GameItem.loadNewImage('assets/img/TrojanHorse.png')));
         }
-        else if (Game.randomNumber(1, 300) === 1 && this.currentLevel >= 4) {
-            this.scoringItems.push(new Spy('rightToLeft', this.game.canvas, 800, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/spy.png')));
+        else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
+            this.scoringItems.push(new Spy('rightToLeft', this.game.canvas, 800, GameItem.randomInteger(0, this.game.canvas.height - 72), GameItem.loadNewImage('assets/img/spy.png')));
         }
         else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new Coin('rightToLeft', this.game.canvas, this.game.canvas.width, GameItem.randomInteger(0, this.game.canvas.height - 30), GameItem.loadNewImage('assets/img/coin.png')));
@@ -122,6 +122,7 @@ export default class Level extends Scene {
                         }
                         bullet.setIsHit();
                         if (element instanceof TrojanHorse) {
+                            this.score.setScore(2);
                             console.log(element.getLives());
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
@@ -135,6 +136,7 @@ export default class Level extends Scene {
                         if (element instanceof Spy) {
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
+                                this.score.setScore(1);
                                 return false;
                             }
                             return true;

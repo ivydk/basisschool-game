@@ -30,17 +30,21 @@ export default class QuestionPage extends Scene {
 
     private correctAnswer: string;
 
-    private answerA: string;
-
-    private answerB: string;
-
-    private answerC: string;
-
     private character: HTMLImageElement;
 
     private correctIndex: number;
 
     private correctKey: number;
+
+    private correctAnswerYPos: number;
+
+    private inCorrectAnswerYPos: number;
+
+    private correctLetter: string;
+
+    private inCorrectLetter: string;
+
+    private inCorrectIndex: any;
 
     public constructor(game: Game, score: Score, coins: CoinPoints, currentLevel: number, character: HTMLImageElement) {
         super(game);
@@ -56,8 +60,7 @@ export default class QuestionPage extends Scene {
 
         this.keyListener = new KeyListener();
 
-        // TODO: make a random question about the virus
-        // TODO: Haal kut weg!!
+        // Array with all the questions + answers (question, true answer, 2x false answer)
         this.questions = [
             new Question(
                 'Wat maakt een Trojan Horse virus zo gevaarlijk?',
@@ -83,7 +86,7 @@ export default class QuestionPage extends Scene {
                 'Een virus dat je computer langzamer maakt en laat vastlopen.',
                 'Iets wat diep in het systeem van je computer zit en je computer vanuit daar kapot maakt.'),
             new Question(
-                'Wat is een Trojan Horse virus.',
+                'Wat is een Trojan Horse virus?',
                 'Een virus dat verstopt zit in een ander programma en op die manier andere virussen binnen kan laten in het systeem.',
                 'Een virus dat binnen in je systeem schade aanbrengt.',
                 'Een virus dat overal afbeeldingen van paarden op je computer verstopt en laat zien.'),
@@ -101,12 +104,13 @@ export default class QuestionPage extends Scene {
                 'Hoe kan je je computer beschermen tegen virussen?',
                 'Een virusscanner downloaden.',
                 'Een betere nieuwe computer kopen.',
-                'Niet, je kan je computer niet beschermen tegen virussen.'),
-            new Question(
-                '',
-                '',
-                '',
-                ''),
+                'Niet, je kan je computer niet beschermen tegen virussen.')
+
+            // new Question(
+            //     '',
+            //     '',
+            //     '',
+            //     ''),
         ];
 
         this.currentQuestion = this.randomQuestion(this.questions);
@@ -117,19 +121,27 @@ export default class QuestionPage extends Scene {
 
         console.log(this.correctIndex);
 
+        // Decides wich key you should press for the right answer
+        // Gives the yPos for the right answer
+        // Gives the right letter to the correctLetter variable
         switch (this.correctIndex) {
             case 0: this.correctKey = KeyListener.KEY_A;
+                this.correctAnswerYPos = this.game.canvas.height / 2;
+                this.correctLetter = 'A';
                 break;
             case 1: this.correctKey = KeyListener.KEY_B;
+                this.correctAnswerYPos = this.game.canvas.height / 2 + 25;
+                this.correctLetter = 'B';
                 break;
             case 2: this.correctKey = KeyListener.KEY_C;
+                this.correctAnswerYPos = this.game.canvas.height / 2 + 50;
+                this.correctLetter = 'C';
                 break;
             default: null
                 break;
         }
     }
 
-    // TODO: het correcte antwoord kiezen en dan pas door ipv altijd bij a
     public processInput(): void {
         // If you choose the right answer you go back to the game
         if (this.keyListener.isKeyDown(this.correctKey)) {
@@ -138,12 +150,27 @@ export default class QuestionPage extends Scene {
 
             // if you choose a different key you go to the answer screen
         } else if (
-            this.keyListener.isKeyDown(KeyListener.KEY_A) ||
-            this.keyListener.isKeyDown(KeyListener.KEY_B) ||
-            this.keyListener.isKeyDown(KeyListener.KEY_C)
-        ) {
-            this.isFinished = true;
+            this.keyListener.isKeyDown(KeyListener.KEY_A)) {
+            this.inCorrectIndex = 0;
+            this.inCorrectAnswerYPos = this.game.canvas.height / 2;
+            this.inCorrectLetter = 'A';
             this.answer = false;
+        } else if (
+            this.keyListener.isKeyDown(KeyListener.KEY_B)) {
+            this.inCorrectIndex = 1;
+            this.inCorrectAnswerYPos = this.game.canvas.height / 2 + 25;
+            this.inCorrectLetter = 'B';
+            this.answer = false;
+        } else if (
+            this.keyListener.isKeyDown(KeyListener.KEY_C)) {
+            this.inCorrectIndex = 2;
+            this.inCorrectAnswerYPos = this.game.canvas.height / 2 + 50;
+            this.inCorrectLetter = 'C';
+            this.answer = false;
+        }
+
+        if (this.answer === false && this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {
+            this.isFinished = true;
         }
     }
 
@@ -167,8 +194,6 @@ export default class QuestionPage extends Scene {
                     case 4: return new Level_4(this.game, this.score, this.coins, 0, this.character);
                 }
             } else if (this.answer === false) {
-                // TODO: return to the info page
-                // return new ExplainWrongAnswer(this.game, this.score, this.coins, this.currentLevel, this.character, this.currentQuestion)
                 return new Start(this.game)
             }
         }
@@ -181,10 +206,19 @@ export default class QuestionPage extends Scene {
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
         this.writeTextToCanvas(`${this.currentQuestion.getQuestion()}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) - 45, 30, "white", "center");
-        this.writeTextToCanvas(`A: ${this.currentQuestion.getAnswer(0)}`, this.game.canvas.width / 2, this.game.canvas.height / 2, 20, "white", "center");
-        this.writeTextToCanvas(`B: ${this.currentQuestion.getAnswer(1)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 25, 20, "white", "center");
-        this.writeTextToCanvas(`C: ${this.currentQuestion.getAnswer(2)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 50, 20, "white", "center");
-        this.writeTextToCanvas('Druk op A, B of C om het antwoord te geven', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 85, 18, "white", "center");
+
+        if (this.answer === false) {
+            // Right answer appears in green
+            this.writeTextToCanvas(`${this.correctLetter}: ${this.currentQuestion.getAnswer(this.correctIndex)}`, this.game.canvas.width / 2, this.correctAnswerYPos, 20, "green", "center");
+
+            // wrong answer appears in red
+            this.writeTextToCanvas(`${this.inCorrectLetter}: ${this.currentQuestion.getAnswer(this.inCorrectIndex)}`, this.game.canvas.width / 2, this.inCorrectAnswerYPos, 20, "red", "center");
+        } else {
+            this.writeTextToCanvas(`A: ${this.currentQuestion.getAnswer(0)}`, this.game.canvas.width / 2, this.game.canvas.height / 2, 20, "white", "center");
+            this.writeTextToCanvas(`B: ${this.currentQuestion.getAnswer(1)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 25, 20, "white", "center");
+            this.writeTextToCanvas(`C: ${this.currentQuestion.getAnswer(2)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 50, 20, "white", "center");
+            this.writeTextToCanvas('Druk op A, B of C om het antwoord te geven', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 85, 18, "white", "center");
+        }
         // this.writeTextToCanvas(`${String.fromCodePoint(129440, 129440, 129440)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "green", "center");
     }
 

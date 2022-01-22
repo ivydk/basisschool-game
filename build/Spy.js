@@ -12,7 +12,7 @@ export default class Spy extends ScoringItem {
         this.type = 'RightToLeft';
         xPosition = canvas.width;
         this.image = image;
-        this.lives = 1;
+        this.lives = 2;
         this.type = type;
         this.speed = 2;
     }
@@ -32,6 +32,7 @@ export default class Spy extends ScoringItem {
         }
     }
     subtractLivesWhenHit() {
+        console.log(this.lives);
         this.lives -= 1;
     }
     isDead() {

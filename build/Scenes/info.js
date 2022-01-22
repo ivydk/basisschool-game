@@ -16,7 +16,6 @@ export default class Info extends Scene {
         this.score = new Score();
         this.coinPoints = new CoinPoints();
         this.keyListener = new KeyListener();
-        Game.changeBackgroundImg('background_4.jpeg');
     }
     processInput() {
         if (this.keyListener.isKeyDown(KeyListener.KEY_M)) {
@@ -30,7 +29,7 @@ export default class Info extends Scene {
     }
     update(elapsed) {
         if (this.isFinished) {
-            return new Level_1(this.game, this.score, this.coinPoints, 3, this.character);
+            return new Level_1(this.game, this.score, this.coinPoints, 1000, this.character);
         }
         return null;
     }

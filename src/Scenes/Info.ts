@@ -25,7 +25,7 @@ export default class Info extends Scene {
         this.keyListener = new KeyListener();
 
         // change the background
-        Game.changeBackgroundImg('background_4.jpeg');
+        // Game.changeBackgroundImg('background_4.jpeg');
 
     }
 
@@ -50,7 +50,8 @@ export default class Info extends Scene {
     public update(elapsed: number): Scene {
         if (this.isFinished) {
             // Proceed to the next screen
-            return new Level_1(this.game, this.score, this.coinPoints, 3, this.character);
+            // TODO: verander levens naar 3
+            return new Level_1(this.game, this.score, this.coinPoints, 1000, this.character);
         }
         return null;
     }

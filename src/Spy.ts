@@ -31,7 +31,7 @@ export default class Spy extends ScoringItem {
         this.image = image;
 
         // Lives the spy starts with
-        this.lives = 1;
+        this.lives = 2;
 
         this.type = type;
         this.speed = 2;
@@ -66,6 +66,7 @@ export default class Spy extends ScoringItem {
     * When you call this function it will subtract 1 from the variable lives
     */
     public subtractLivesWhenHit() {
+        console.log(this.lives);
         this.lives -= 1;
     }
 

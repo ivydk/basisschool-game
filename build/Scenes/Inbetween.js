@@ -1,3 +1,4 @@
+import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Level_1 from "./Level_1.js";
 import Level_2 from "./Level_2.js";
@@ -20,6 +21,7 @@ export default class Inbetween extends Scene {
     constructor(game, score, coins, currentLevel, character, lives) {
         super(game);
         console.log('Question page');
+        Game.changeBackgroundImg('brickWall.jpg');
         this.character = character;
         this.currentLevel = currentLevel;
         this.score = score;

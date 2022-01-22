@@ -98,15 +98,15 @@ export default class Level extends Scene {
                 'rightToLeft',
                 this.game.canvas,
                 this.game.canvas.width,
-                GameItem.randomInteger(0, this.game.canvas.height - 30),
+                GameItem.randomInteger(0, this.game.canvas.height - 75),
                 GameItem.loadNewImage('assets/img/TrojanHorse.png'),
             ));
-        } else if (Game.randomNumber(1, 300) === 1 && this.currentLevel >= 4) {
+        } else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
             this.scoringItems.push(new Spy(
                 'rightToLeft',
                 this.game.canvas,
                 800,
-                GameItem.randomInteger(0, this.game.canvas.height - 30),
+                GameItem.randomInteger(0, this.game.canvas.height - 72),
                 GameItem.loadNewImage('assets/img/spy.png'),
             ));
         } else if (Game.randomNumber(1, 300) === 1 && this.currentLevel > 0) {
@@ -225,12 +225,13 @@ export default class Level extends Scene {
                         bullet.setIsHit();
 
                         // checks if the element is a trojan horse
-                        // TODO: hier moeten meerdere virussen komen op ongeveer dezelfde plaats
                         if (element instanceof TrojanHorse) {
+                            // You need to shoot it three times so you get 2 more points
+                            this.score.setScore(2);
                             console.log(element.getLives());
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
-
+                                // if the horse is shot, it will create three new viruses
                                 this.toSpawn.push(new Virus(
                                     'rightToLeft',
                                     this.game.canvas,
@@ -259,8 +260,10 @@ export default class Level extends Scene {
 
                         // Checks if the element is a spy
                         if (element instanceof Spy) {
+                            // you need to shoot it 2 times so you get 1 more point
                             element.subtractLivesWhenHit();
                             if (element.isDead()) {
+                                this.score.setScore(1);
                                 return false
                             }
                             return true;

@@ -38,6 +38,7 @@ export default class Inbetween extends Scene {
     public constructor(game: Game, score: Score, coins: CoinPoints, currentLevel: number, character: HTMLImageElement, lives: number) {
         super(game);
         console.log('Question page');
+        Game.changeBackgroundImg('brickWall.jpg');
 
         this.character = character;
 
