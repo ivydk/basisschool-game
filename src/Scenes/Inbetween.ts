@@ -95,13 +95,13 @@ export default class InBetween extends Scene {
             // This switch determents what level you should go back to
             // TODO: Add new cases if new levels are added
             switch (this.currentLevel + 1) {
-                case 1: return new Level_1(this.game, this.score, this.coins, this.lives, this.character);
+                case 1: return new Level_1(this.game, this.score, this.coins, this.lives, this.character, this.extraBullets);
                     break;
-                case 2: return new Level_2(this.game, this.score, this.coins, this.lives, this.character);
+                case 2: return new Level_2(this.game, this.score, this.coins, this.lives, this.character, this.extraBullets);
                     break;
-                case 3: return new Level_3(this.game, this.score, this.coins, this.lives, this.character);
+                case 3: return new Level_3(this.game, this.score, this.coins, this.lives, this.character, this.extraBullets);
                     break;
-                case 4: return new Level_4(this.game, this.score, this.coins, this.lives, this.character);
+                case 4: return new Level_4(this.game, this.score, this.coins, this.lives, this.character, this.extraBullets);
                     break;
                 case 5: return new HighScore(this.game, this.score, this.coins, this.currentLevel);
                     break;

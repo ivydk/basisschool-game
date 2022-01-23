@@ -10,13 +10,13 @@ import Scene from "./Scene.js";
 export default class Level_2 extends Level {
     public static readonly SCORE_NEEDED = Level.SCORE_TO_LEVEL_UP_ARRAY[2];
 
-    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
+    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement, extraBullets: number) {
         super(game, score, coins, lives, character);
         this.currentLevel = 2;
 
         this.pointsToLevelUp = Level_1.SCORE_TO_LEVEL_UP + Level_2.SCORE_NEEDED;
 
-        this.maxBullets = 200;
+        this.maxBullets = 200 + extraBullets;
         this.character = character;
 
         Game.changeBackgroundImg('background_4.jpeg');
@@ -31,7 +31,7 @@ export default class Level_2 extends Level {
 
         if (this.score.getScore() >= this.pointsToLevelUp) {
             // Proceed to the next screen
-            return new Level_3(this.game, this.score, this.coinPoints, this.lives + 1, this.character);
+            return new Level_3(this.game, this.score, this.coinPoints, this.lives + 1, this.character, 0);
         }
 
         return null;

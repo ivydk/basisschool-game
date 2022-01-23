@@ -13,7 +13,7 @@ import InBetween from "./InBetween.js";
 export default class Level_1 extends Level {
     public static readonly SCORE_TO_LEVEL_UP = Level.SCORE_TO_LEVEL_UP_ARRAY[1];
 
-    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
+    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement, extraBullets: number) {
         super(game, score, coins, lives, character)
         this.score = score;
         this.coinPoints = coins;
@@ -21,7 +21,7 @@ export default class Level_1 extends Level {
 
         this.character = character;
 
-        this.maxBullets = 300; // TODO: verander bullet max
+        this.maxBullets = 300 + extraBullets; // TODO: verander bullet max
 
         // changes the background
         Game.changeBackgroundImg('background_3.jpeg');

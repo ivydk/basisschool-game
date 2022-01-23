@@ -36,7 +36,7 @@ export default class Info extends Scene {
     }
     update(elapsed) {
         if (this.isFinished) {
-            return new Level_1(this.game, this.score, this.coinPoints, 3, this.character);
+            return new Level_1(this.game, this.score, this.coinPoints, 3, this.character, 0);
         }
         return null;
     }

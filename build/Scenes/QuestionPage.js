@@ -100,15 +100,15 @@ export default class QuestionPage extends Scene {
             if (this.answer === true) {
                 switch (this.currentLevel) {
                     case 1:
-                        return new Level_1(this.game, this.score, this.coins, 0, this.character);
+                        return new Level_1(this.game, this.score, this.coins, 0, this.character, 0);
                         break;
                     case 2:
-                        return new Level_2(this.game, this.score, this.coins, 0, this.character);
+                        return new Level_2(this.game, this.score, this.coins, 0, this.character, 0);
                         break;
                     case 3:
-                        return new Level_3(this.game, this.score, this.coins, 0, this.character);
+                        return new Level_3(this.game, this.score, this.coins, 0, this.character, 0);
                         break;
-                    case 4: return new Level_4(this.game, this.score, this.coins, 0, this.character);
+                    case 4: return new Level_4(this.game, this.score, this.coins, 0, this.character, 0);
                 }
             }
             else if (this.answer === false) {

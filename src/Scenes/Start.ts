@@ -23,7 +23,7 @@ export default class Start extends Scene {
         this.coins = new CoinPoints();
         this.keyListener = new KeyListener();
 
-        // change the backgrounddd
+        // change the background
         Game.changeBackgroundImg('startScherm-bg.jpeg');
 
     }

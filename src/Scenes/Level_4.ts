@@ -12,11 +12,11 @@ import Level_3 from "./Level_3.js";
 export default class Level_4 extends Level {
     public static readonly SCORE_NEEDED = Level.SCORE_TO_LEVEL_UP_ARRAY[4];
 
-    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
+    public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement, extraBullets: number) {
         super(game, score, coins, lives, character)
 
         this.pointsToLevelUp = Level_1.SCORE_TO_LEVEL_UP + Level_2.SCORE_NEEDED + Level_3.SCORE_NEEDED + Level_4.SCORE_NEEDED;
-        this.maxBullets = 750;
+        this.maxBullets = 750 + extraBullets;
 
         this.character = character;
 
