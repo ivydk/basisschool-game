@@ -5,7 +5,7 @@ import Level from "./Level.js";
 import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
 import CoinPoints from "../CoinPoints.js";
-import Info from "./Info.js";
+import Info from "Scenes/Info.js";
 
 export default class Start extends Scene {
     private isFinished: boolean;
