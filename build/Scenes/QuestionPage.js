@@ -124,6 +124,7 @@ export default class QuestionPage extends Scene {
         if (this.answer === false) {
             this.writeTextToCanvas(`${this.correctLetter}: ${this.currentQuestion.getAnswer(this.correctIndex)}`, this.game.canvas.width / 2, this.correctAnswerYPos, 20, "green", "center");
             this.writeTextToCanvas(`${this.inCorrectLetter}: ${this.currentQuestion.getAnswer(this.inCorrectIndex)}`, this.game.canvas.width / 2, this.inCorrectAnswerYPos, 20, "red", "center");
+            this.writeTextToCanvas('Druk op enter om door te gaan', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 85, 18, "white", "center");
         }
         else {
             this.writeTextToCanvas(`A: ${this.currentQuestion.getAnswer(0)}`, this.game.canvas.width / 2, this.game.canvas.height / 2, 20, "white", "center");

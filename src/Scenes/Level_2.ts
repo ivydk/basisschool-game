@@ -8,7 +8,7 @@ import Level_3 from "./Level_3.js";
 import Scene from "./Scene.js";
 
 export default class Level_2 extends Level {
-    public static readonly SCORE_NEEDED = 150
+    public static readonly SCORE_NEEDED = Level.SCORE_TO_LEVEL_UP_ARRAY[2];
 
     public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
         super(game, score, coins, lives, character);

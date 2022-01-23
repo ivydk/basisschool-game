@@ -10,7 +10,7 @@ import Level_2 from "./Level_2.js";
 import Level_3 from "./Level_3.js";
 
 export default class Level_4 extends Level {
-    public static readonly SCORE_NEEDED = 500;
+    public static readonly SCORE_NEEDED = Level.SCORE_TO_LEVEL_UP_ARRAY[4];
 
     public constructor(game: Game, score: Score, coins: CoinPoints, lives: number, character: HTMLImageElement) {
         super(game, score, coins, lives, character)

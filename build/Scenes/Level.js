@@ -10,6 +10,7 @@ import TrojanHorse from "../TrojanHorse.js";
 import Spy from "../Spy.js";
 import Coin from "../Coin.js";
 export default class Level extends Scene {
+    static SCORE_TO_LEVEL_UP_ARRAY = [null, 50, 150, 300, 500];
     isAlive;
     scoringItems;
     player;
@@ -67,11 +68,12 @@ export default class Level extends Scene {
     render() {
         const ctx = this.game.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
-        this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'Green', "left");
+        this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'white', "left");
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "white", "left");
         this.writeTextToCanvas(`Levens: ${this.lives}`, 25, 110, 25, "white", "left");
         this.writeTextToCanvas(`Kogels over: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
         this.writeTextToCanvas(`Munten: ${this.coinPoints.getCoins()}`, 25, 160, 25, "white", "left");
+        this.writeTextToCanvas(`${Level.SCORE_TO_LEVEL_UP_ARRAY[this.currentLevel] - this.score.getScore()}`, this.game.canvas.width - 25, 50, 40, "white", "right");
         this.player.draw(ctx);
         this.line.drawLine(ctx);
         if (this.scoringItems.length !== 0) {

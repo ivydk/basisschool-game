@@ -15,6 +15,10 @@ import Coin from "../Coin.js";
 import CoinPoints from "../CoinPoints.js";
 
 export default class Level extends Scene {
+    // how many points per level to levelUp
+    public static readonly SCORE_TO_LEVEL_UP_ARRAY = [null, 50, 150, 300, 500];
+
+
     protected isAlive: boolean;
 
     private scoringItems: ScoringItem[];
@@ -139,11 +143,14 @@ export default class Level extends Scene {
         // Clear the screen
         ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
-        this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'Green', "left");
+        this.writeTextToCanvas(`Level ${this.currentLevel}`, 25, 50, 40, 'white', "left");
         this.writeTextToCanvas(`Score: ${this.score.getScore()}`, 25, 85, 25, "white", "left",);
         this.writeTextToCanvas(`Levens: ${this.lives}`, 25, 110, 25, "white", "left");
         this.writeTextToCanvas(`Kogels over: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
         this.writeTextToCanvas(`Munten: ${this.coinPoints.getCoins()}`, 25, 160, 25, "white", "left",);
+
+        // How many point till level up
+        this.writeTextToCanvas(`${Level.SCORE_TO_LEVEL_UP_ARRAY[this.currentLevel] - this.score.getScore()}`, this.game.canvas.width - 25, 50, 40, "white", "right");
 
         // draw everything
         this.player.draw(ctx);
