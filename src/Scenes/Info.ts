@@ -30,7 +30,6 @@ export default class Info extends Scene {
         this.coinPoints = new CoinPoints();
         this.keyListener = new KeyListener();
 
-        // TODO: change the background
         Game.changeBackgroundImg('brickWall.jpg');
 
         this.boy = Game.loadNewImage('assets/img/player_boy.png');
@@ -84,11 +83,9 @@ export default class Info extends Scene {
         // this.writeTextToCanvas('Druk op M', this.game.canvas.width - ((this.game.canvas.width / 4) + (88.63 / 4)), this.game.canvas.height - 220, 30, "black", "center");
         ctx.drawImage(this.girl, this.game.canvas.width - (this.game.canvas.width / 2.5) - (88.63 / 2), this.game.canvas.height - 200, 88.63, 141.13);
 
-        // TODO: maak hier een goede uitleg van
-        this.writeTextToCanvas('Jij bent een jongen/meisje en jij moet samen met', this.game.canvas.width / 2, (this.game.canvas.height / 2) - 30, 30, "black", "center");
-        this.writeTextToCanvas(' je laptop tegen de computer virussen', this.game.canvas.width / 2, (this.game.canvas.height / 2), 30, "white", "center");
-        // TODO: is schieten te boos?
-        this.writeTextToCanvas('vechten, schiet op de virussen om ze weg te halen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 30, "black", "center");
+        this.writeTextToCanvas('Bescherm jouw laptop tegen virussen.', this.game.canvas.width / 2, (this.game.canvas.height / 2) - 30, 30, "black", "center");
+        // this.writeTextToCanvas('Nu ben jij een echte virus vechter!', this.game.canvas.width / 2, (this.game.canvas.height / 2), 30, "white", "center");
+        this.writeTextToCanvas('Schiet op de virussen om jouw laptop te beschermen.', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 30, "black", "center");
         this.writeTextToCanvas('Druk op J voor een jongen en M voor een meisje', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 80, 30, "black", "center");
     }
 }

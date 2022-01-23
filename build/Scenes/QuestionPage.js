@@ -1,3 +1,4 @@
+import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Level_1 from "./Level_1.js";
 import Level_2 from "./Level_2.js";
@@ -32,6 +33,7 @@ export default class QuestionPage extends Scene {
         this.score = score;
         this.coins = coins;
         this.keyListener = new KeyListener();
+        Game.changeBackgroundImg('background_1.jpeg');
         this.questions = [
             new Question('Wat maakt een Trojan Horse virus zo gevaarlijk?', 'Het virus zit verstopt in een programma of virus.', 'Het virus kan niet worden weggehaald.', 'Je kan je computer er niet tegen beschermen.'),
             new Question('Wat is een virusscanner?', 'Een virusscanner zoekt naar virussen en andere malware.', 'Een virusscanner waarschuwt je voor mensen die je benaderen in een spel.', 'Een virusscanner is een vorm van malware.'),

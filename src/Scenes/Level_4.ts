@@ -21,6 +21,9 @@ export default class Level_4 extends Level {
         this.character = character;
 
         this.currentLevel = 4;
+
+        Game.changeBackgroundImg('background_5.jpeg');
+
     }
 
     public update(elapsed: number): Scene {
@@ -30,7 +33,7 @@ export default class Level_4 extends Level {
             return new GameOver(this.game, this.score, this.coinPoints, this.currentLevel, this.character);
         }
 
-        if (this.score.getScore() >= 1000) {
+        if (this.score.getScore() >= this.pointsToLevelUp) {
             return new HighScore(this.game, this.score, this.coinPoints, this.currentLevel);
         }
 

@@ -1,3 +1,4 @@
+import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import QuestionPage from "./QuestionPage.js";
 import Scene from "./Scene.js";
@@ -20,6 +21,7 @@ export default class GameOver extends Scene {
         this.score = score;
         this.coins = coins;
         this.keyListener = new KeyListener();
+        Game.changeBackgroundImg('background_1.jpeg');
     }
     processInput() {
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {

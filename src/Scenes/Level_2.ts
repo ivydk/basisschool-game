@@ -6,6 +6,7 @@ import Level from "./Level.js";
 import Level_1 from "./Level_1.js";
 import Level_3 from "./Level_3.js";
 import Scene from "./Scene.js";
+import InBetween from "./InBetween.js";
 
 export default class Level_2 extends Level {
     public static readonly SCORE_NEEDED = Level.SCORE_TO_LEVEL_UP_ARRAY[2];
@@ -19,7 +20,7 @@ export default class Level_2 extends Level {
         this.maxBullets = 200 + extraBullets;
         this.character = character;
 
-        Game.changeBackgroundImg('background_4.jpeg');
+        Game.changeBackgroundImg('background_6.jpeg');
     }
 
     public update(elapsed: number): Scene {
@@ -31,7 +32,8 @@ export default class Level_2 extends Level {
 
         if (this.score.getScore() >= this.pointsToLevelUp) {
             // Proceed to the next screen
-            return new Level_3(this.game, this.score, this.coinPoints, this.lives + 1, this.character, 0);
+            // return new Level_3(this.game, this.score, this.coinPoints, this.lives + 1, this.character, 0);
+            return new InBetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
         }
 
         return null;

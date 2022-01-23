@@ -60,6 +60,9 @@ export default class QuestionPage extends Scene {
 
         this.keyListener = new KeyListener();
 
+        Game.changeBackgroundImg('background_1.jpeg');
+
+
         // Array with all the questions + answers (question, true answer, 2x false answer)
         this.questions = [
             new Question(

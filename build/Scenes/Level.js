@@ -11,6 +11,13 @@ import Spy from "../Spy.js";
 import Coin from "../Coin.js";
 export default class Level extends Scene {
     static SCORE_TO_LEVEL_UP_ARRAY = [null, 50, 150, 300, 500];
+    static SCORE_TOTAL_PER_LEVEL_ARRAY = [
+        null,
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1],
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1] + Level.SCORE_TO_LEVEL_UP_ARRAY[2],
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1] + Level.SCORE_TO_LEVEL_UP_ARRAY[2] + Level.SCORE_TO_LEVEL_UP_ARRAY[3],
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1] + Level.SCORE_TO_LEVEL_UP_ARRAY[2] + Level.SCORE_TO_LEVEL_UP_ARRAY[3] + Level.SCORE_TO_LEVEL_UP_ARRAY[4]
+    ];
     isAlive;
     scoringItems;
     player;
@@ -73,7 +80,7 @@ export default class Level extends Scene {
         this.writeTextToCanvas(`Levens: ${this.lives}`, 25, 110, 25, "white", "left");
         this.writeTextToCanvas(`Kogels over: ${this.maxBullets - this.bulletsShot}`, 25, 135, 25, "white", "left");
         this.writeTextToCanvas(`Munten: ${this.coinPoints.getCoins()}`, 25, 160, 25, "white", "left");
-        this.writeTextToCanvas(`${Level.SCORE_TO_LEVEL_UP_ARRAY[this.currentLevel] - this.score.getScore()}`, this.game.canvas.width - 25, 50, 40, "white", "right");
+        this.writeTextToCanvas(`${Level.SCORE_TOTAL_PER_LEVEL_ARRAY[this.currentLevel] - this.score.getScore()}`, this.game.canvas.width - 25, 50, 40, "white", "right");
         this.player.draw(ctx);
         this.line.drawLine(ctx);
         if (this.scoringItems.length !== 0) {

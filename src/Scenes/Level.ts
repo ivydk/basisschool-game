@@ -16,7 +16,19 @@ import CoinPoints from "../CoinPoints.js";
 
 export default class Level extends Scene {
     // how many points per level to levelUp
+    // TODO: fix eerste level
     public static readonly SCORE_TO_LEVEL_UP_ARRAY = [null, 50, 150, 300, 500];
+
+    // total score you need per level
+    public static readonly SCORE_TOTAL_PER_LEVEL_ARRAY = [
+        null,
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1],
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1] + Level.SCORE_TO_LEVEL_UP_ARRAY[2],
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1] + Level.SCORE_TO_LEVEL_UP_ARRAY[2] + Level.SCORE_TO_LEVEL_UP_ARRAY[3],
+        Level.SCORE_TO_LEVEL_UP_ARRAY[1] + Level.SCORE_TO_LEVEL_UP_ARRAY[2] + Level.SCORE_TO_LEVEL_UP_ARRAY[3] + Level.SCORE_TO_LEVEL_UP_ARRAY[4]
+    ]
+    // public static readonly SCORE_TO_LEVEL_UP_ARRAY = [null, 50, 150, 300, 500];
+
 
 
     protected isAlive: boolean;
@@ -150,7 +162,7 @@ export default class Level extends Scene {
         this.writeTextToCanvas(`Munten: ${this.coinPoints.getCoins()}`, 25, 160, 25, "white", "left",);
 
         // How many point till level up
-        this.writeTextToCanvas(`${Level.SCORE_TO_LEVEL_UP_ARRAY[this.currentLevel] - this.score.getScore()}`, this.game.canvas.width - 25, 50, 40, "white", "right");
+        this.writeTextToCanvas(`${Level.SCORE_TOTAL_PER_LEVEL_ARRAY[this.currentLevel] - this.score.getScore()}`, this.game.canvas.width - 25, 50, 40, "white", "right");
 
         // draw everything
         this.player.draw(ctx);

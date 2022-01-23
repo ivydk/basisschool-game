@@ -1,3 +1,4 @@
+import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Scene from "./Scene.js";
 import Start from "./Start.js";
@@ -14,6 +15,7 @@ export default class HighScore extends Scene {
         this.score = score;
         this.coins = coins;
         this.keyListener = new KeyListener();
+        Game.changeBackgroundImg('background_1.jpeg');
     }
     processInput() {
         if (this.keyListener.isKeyDown(KeyListener.KEY_ENTER)) {

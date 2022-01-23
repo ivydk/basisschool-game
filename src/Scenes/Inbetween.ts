@@ -61,7 +61,6 @@ export default class InBetween extends Scene {
         this.levelUpImage = Game.loadNewImage('assets/img/levelUp2.png');
     }
 
-    // TODO: how many coins will it cost
     public processInput(): void {
         this.screens += 1;
 

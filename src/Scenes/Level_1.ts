@@ -21,7 +21,7 @@ export default class Level_1 extends Level {
 
         this.character = character;
 
-        this.maxBullets = 300 + extraBullets; // TODO: verander bullet max
+        this.maxBullets = 75 + extraBullets;
 
         // changes the background
         Game.changeBackgroundImg('background_3.jpeg');
@@ -37,7 +37,6 @@ export default class Level_1 extends Level {
 
         if (this.score.getScore() >= Level_1.SCORE_TO_LEVEL_UP) {
             // Proceed to the next screen
-            // TODO: fix the lives
             // return new Level_2(this.game, this.score, this.coinPoints, this.lives + 1, this.character);
             return new InBetween(this.game, this.score, this.coinPoints, this.currentLevel, this.character, this.lives);
         }

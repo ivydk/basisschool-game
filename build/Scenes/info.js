@@ -46,9 +46,8 @@ export default class Info extends Scene {
         ctx.drawImage(this.virusVechterLogo, (this.game.canvas.width / 2) - (this.virusVechterLogo.width / 2), 50);
         ctx.drawImage(this.boy, (this.game.canvas.width / 2.5) - (100 / 2), this.game.canvas.height - 200, 100, 141.13);
         ctx.drawImage(this.girl, this.game.canvas.width - (this.game.canvas.width / 2.5) - (88.63 / 2), this.game.canvas.height - 200, 88.63, 141.13);
-        this.writeTextToCanvas('Jij bent een jongen/meisje en jij moet samen met', this.game.canvas.width / 2, (this.game.canvas.height / 2) - 30, 30, "black", "center");
-        this.writeTextToCanvas(' je laptop tegen de computer virussen', this.game.canvas.width / 2, (this.game.canvas.height / 2), 30, "white", "center");
-        this.writeTextToCanvas('vechten, schiet op de virussen om ze weg te halen', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 30, "black", "center");
+        this.writeTextToCanvas('Bescherm jouw laptop tegen virussen.', this.game.canvas.width / 2, (this.game.canvas.height / 2) - 30, 30, "black", "center");
+        this.writeTextToCanvas('Schiet op de virussen om jouw laptop te beschermen.', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 30, 30, "black", "center");
         this.writeTextToCanvas('Druk op J voor een jongen en M voor een meisje', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 80, 30, "black", "center");
     }
 }

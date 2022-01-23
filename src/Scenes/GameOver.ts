@@ -37,6 +37,9 @@ export default class GameOver extends Scene {
         this.score = score;
         this.coins = coins;
         this.keyListener = new KeyListener();
+
+        Game.changeBackgroundImg('background_1.jpeg');
+
     }
 
     public processInput(): void {
@@ -76,6 +79,5 @@ export default class GameOver extends Scene {
         this.writeTextToCanvas('Druk op V als je een extra leven wilt', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "white", "center");
         // this.writeTextToCanvas(`${String.fromCodePoint(129440, 129440, 129440)}`, this.game.canvas.width / 2, (this.game.canvas.height / 2) + 60, 20, "green", "center");
 
-        // TODO: random question about viruses, if the answer is correct you will get a extra live
     }
 }

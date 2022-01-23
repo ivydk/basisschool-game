@@ -10,7 +10,7 @@ export default class Level_1 extends Level {
         this.coinPoints = coins;
         this.currentLevel = 1;
         this.character = character;
-        this.maxBullets = 300 + extraBullets;
+        this.maxBullets = 75 + extraBullets;
         Game.changeBackgroundImg('background_3.jpeg');
     }
     update(elapsed) {

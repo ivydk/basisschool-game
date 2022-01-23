@@ -28,6 +28,8 @@ export default class HighScore extends Scene {
         this.score = score;
         this.coins = coins;
         this.keyListener = new KeyListener();
+
+        Game.changeBackgroundImg('background_1.jpeg');
     }
 
     public processInput(): void {

@@ -1,3 +1,4 @@
+import Game from "../Game.js";
 import GameOver from "./GameOver.js";
 import HighScore from "./HighScore.js";
 import Level from "./Level.js";
@@ -12,13 +13,14 @@ export default class Level_4 extends Level {
         this.maxBullets = 750 + extraBullets;
         this.character = character;
         this.currentLevel = 4;
+        Game.changeBackgroundImg('background_5.jpeg');
     }
     update(elapsed) {
         if (this.isAlive) {
             this.isAlive = true;
             return new GameOver(this.game, this.score, this.coinPoints, this.currentLevel, this.character);
         }
-        if (this.score.getScore() >= 1000) {
+        if (this.score.getScore() >= this.pointsToLevelUp) {
             return new HighScore(this.game, this.score, this.coinPoints, this.currentLevel);
         }
         return null;
