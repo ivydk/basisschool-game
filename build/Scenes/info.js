@@ -1,9 +1,9 @@
-import Game from "../Game.js";
 import KeyListener from "../KeyListener.js";
 import Score from "../Score.js";
 import Level_1 from "./Level_1.js";
 import Scene from "./Scene.js";
 import CoinPoints from "../CoinPoints.js";
+import Game from "../Game.js";
 export default class Info extends Scene {
     isFinished;
     keyListener;
