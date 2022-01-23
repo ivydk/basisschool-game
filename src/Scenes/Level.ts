@@ -226,6 +226,7 @@ export default class Level extends Scene {
                         if (!(element instanceof Coin)) {
                             this.score.setScore(1);
                         } else {
+                            // if the element is a coin, your coinPoints needs to go 1 up
                             this.coinPoints.setCoins(1);
                         }
 
