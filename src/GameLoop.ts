@@ -9,6 +9,7 @@ import Scene from './Scenes/Scene.js';
  * of `Scene` that overrides the three methods `processInput()`, `update(elapsed)`
  * and `render()`.
  *
+ *
  * It is possible for a game to switch to another Scene object during the game, so
  * you can create different classes for each game screen, levels, etc. To let the
  * gameLoop switch to another scene, you must return an instance of a new Scene
