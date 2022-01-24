@@ -3,7 +3,7 @@ import KeyListener from "../KeyListener.js";
 import Score from "../Score.js";
 import Scene from "./Scene.js";
 import CoinPoints from "../CoinPoints.js";
-import Info from "./Info.js";
+import Info from "./info.js";
 export default class Start extends Scene {
     isFinished;
     keyListener;

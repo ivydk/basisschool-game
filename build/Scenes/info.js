@@ -51,4 +51,4 @@ export default class Info extends Scene {
         this.writeTextToCanvas('Druk op J voor een jongen en M voor een meisje', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 80, 30, "black", "center");
     }
 }
-//# sourceMappingURL=Info.js.map
+//# sourceMappingURL=info.js.map
