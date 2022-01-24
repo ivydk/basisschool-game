@@ -5,7 +5,7 @@ import Level_2 from "./Level_2.js";
 import Level_3 from "./Level_3.js";
 import Level_4 from "./Level_4.js";
 import Scene from "./Scene.js";
-import HighScore from "./HighScore.js";
+import HighScore from "./Highscore.js";
 export default class InBetween extends Scene {
     answer;
     isFinished;

@@ -36,4 +36,4 @@ export default class HighScore extends Scene {
         this.writeTextToCanvas('Druk op enter om terug te gaan naar het start scherm', this.game.canvas.width / 2, (this.game.canvas.height / 2) + 40, 20, "white", "center");
     }
 }
-//# sourceMappingURL=HighScore.js.map
+//# sourceMappingURL=Highscore.js.map

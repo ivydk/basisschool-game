@@ -2,7 +2,7 @@ import Game from "../Game.js";
 import Score from "../Score.js";
 import CoinPoints from "../CoinPoints.js";
 import GameOver from "./GameOver.js";
-import HighScore from "./HighScore.js";
+import HighScore from "./Highscore.js";
 import Level from "./Level.js";
 import Scene from "./Scene.js";
 import Level_1 from "./Level_1.js";

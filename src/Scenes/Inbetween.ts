@@ -9,7 +9,7 @@ import Level_4 from "./Level_4.js";
 import Scene from "./Scene.js";
 import Start from "./Start.js";
 import Question from "../Question.js";
-import HighScore from "./HighScore.js";
+import HighScore from "./Highscore.js";
 import Line from "../Line.js";
 
 export default class InBetween extends Scene {
