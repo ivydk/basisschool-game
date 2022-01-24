@@ -83,4 +83,4 @@ export default class InBetween extends Scene {
         this.writeTextToCanvas(`Druk om enter om door te gaan naar level ${this.currentLevel + 1}`, this.game.canvas.width / 2, 350 + this.levelUpImage.height, 30, "black", "center");
     }
 }
-//# sourceMappingURL=InBetween.js.map
+//# sourceMappingURL=Inbetween.js.map

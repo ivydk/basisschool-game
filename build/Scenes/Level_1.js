@@ -1,7 +1,7 @@
 import Game from "../Game.js";
 import GameOver from "./GameOver.js";
 import Level from "./Level.js";
-import InBetween from "./InBetween.js";
+import InBetween from "./Inbetween.js";
 export default class Level_1 extends Level {
     static SCORE_TO_LEVEL_UP = Level.SCORE_TO_LEVEL_UP_ARRAY[1];
     constructor(game, score, coins, lives, character, extraBullets) {

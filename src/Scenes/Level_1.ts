@@ -8,7 +8,7 @@ import Scene from "./Scene.js";
 import Level from "./Level.js";
 import Level_2 from "./Level_2.js";
 import Question from "../Question.js";
-import InBetween from "./InBetween.js";
+import InBetween from "./Inbetween.js";
 
 export default class Level_1 extends Level {
     public static readonly SCORE_TO_LEVEL_UP = Level.SCORE_TO_LEVEL_UP_ARRAY[1];

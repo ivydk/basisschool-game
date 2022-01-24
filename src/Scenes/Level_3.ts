@@ -9,7 +9,7 @@ import Level_4 from "./Level_4.js";
 import Scene from "./Scene.js";
 import Level_1 from "./Level_1.js";
 import Level_2 from "./Level_2.js";
-import InBetween from "./InBetween.js";
+import InBetween from "./Inbetween.js";
 
 export default class Level_3 extends Level {
     public static readonly SCORE_NEEDED = Level.SCORE_TO_LEVEL_UP_ARRAY[3];
